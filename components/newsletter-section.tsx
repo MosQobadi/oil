@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, Check, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function NewsletterSection() {
-  const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle")
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
+    e.preventDefault();
+    if (!email) return;
 
-    setStatus("loading")
+    setStatus("loading");
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setStatus("success")
-    setEmail("")
-  }
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setStatus("success");
+    setEmail("");
+  };
 
   return (
     <section className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/10 via-primary/5 to-background" />
-      
+
       {/* Decorative elements */}
       <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
@@ -39,12 +39,15 @@ export function NewsletterSection() {
           className="text-center"
         >
           {/* Content */}
-          <span className="text-primary text-sm font-semibold tracking-widest uppercase">Newsletter</span>
+          <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+            Newsletter
+          </span>
           <h2 className="mt-4 text-4xl sm:text-5xl font-bold text-foreground tracking-tight">
             Stay in the Fast Lane
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto">
-            Get exclusive deals, early access to new products, and expert tips delivered straight to your inbox.
+            Get exclusive deals, early access to new products, and expert tips
+            delivered straight to your inbox.
           </p>
 
           {/* Form */}
@@ -113,5 +116,5 @@ export function NewsletterSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

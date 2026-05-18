@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ShoppingCart, Sun, Moon, Globe } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useLanguage } from "@/lib/language-context"
-import { useTheme } from "@/lib/theme-context"
-import { useCart } from "@/lib/cart-context"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ShoppingCart, Sun, Moon, Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/language-context";
+import { useTheme } from "@/lib/theme-context";
+import { useCart } from "@/lib/cart-context";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { language, setLanguage, t, isRTL } = useLanguage()
-  const { theme, toggleTheme } = useTheme()
-  const { totalItems } = useCart()
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t, isRTL } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+  const { totalItems } = useCart();
 
   const navLinks = [
     { name: t.nav.products, href: "/products" },
@@ -23,19 +23,19 @@ export function Navbar() {
     { name: t.nav.whyUs, href: "#why-us" },
     { name: t.nav.reviews, href: "#reviews" },
     { name: t.nav.faq, href: "#faq" },
-  ]
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "fa" : "en")
-  }
+    setLanguage(language === "en" ? "fa" : "en");
+  };
 
   return (
     <>
@@ -52,14 +52,13 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link href="/" className="flex items-center gap-2">
                 <div className="relative">
                   <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
-                    <span className="text-primary-foreground font-bold text-lg">A</span>
+                    <span className="text-primary-foreground font-bold text-lg">
+                      A
+                    </span>
                   </div>
                   <div className="absolute -inset-1 rounded-lg bg-primary/20 blur-md -z-10" />
                 </div>
@@ -70,7 +69,9 @@ export function Navbar() {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className={`hidden lg:flex items-center gap-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div
+              className={`hidden lg:flex items-center gap-6 ${isRTL ? "flex-row-reverse" : ""}`}
+            >
               {navLinks.map((link) => (
                 <motion.div key={link.name} whileHover={{ y: -2 }}>
                   <Link
@@ -85,7 +86,9 @@ export function Navbar() {
             </div>
 
             {/* Right Side Actions */}
-            <div className={`hidden md:flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div
+              className={`hidden md:flex items-center gap-2 ${isRTL ? "flex-row-reverse" : ""}`}
+            >
               {/* Language Toggle */}
               <Button
                 variant="ghost"
@@ -152,10 +155,18 @@ export function Navbar() {
                 onClick={toggleTheme}
                 className="text-muted-foreground"
               >
-                {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                {theme === "dark" ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )}
               </Button>
               <Link href="/cart">
-                <Button variant="ghost" size="icon" className="relative text-muted-foreground">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative text-muted-foreground"
+                >
                   <ShoppingCart className="h-5 w-5" />
                   {totalItems > 0 && (
                     <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">
@@ -168,7 +179,11 @@ export function Navbar() {
                 className="text-foreground"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
@@ -206,7 +221,10 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <Link href="/products" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link
+                  href="/products"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-6 text-lg">
                     {t.nav.shopNow}
                   </Button>
@@ -217,5 +235,5 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

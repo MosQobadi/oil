@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { ShoppingCart, Star, Flame, Snowflake, Zap } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useLanguage } from "@/lib/language-context"
-import { useCart } from "@/lib/cart-context"
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ShoppingCart, Star, Flame, Snowflake, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/language-context";
+import { useCart } from "@/lib/cart-context";
 
 const products = [
   {
@@ -80,13 +80,13 @@ const products = [
     icon: Snowflake,
     gradient: "from-blue-500/20 to-blue-500/5",
   },
-]
+];
 
 export function ProductsSection() {
-  const { t, language, isRTL } = useLanguage()
-  const { addItem } = useCart()
+  const { t, language, isRTL } = useLanguage();
+  const { addItem } = useCart();
 
-  const handleAddToCart = (product: typeof products[0]) => {
+  const handleAddToCart = (product: (typeof products)[0]) => {
     addItem({
       id: product.id,
       name: product.name,
@@ -94,14 +94,14 @@ export function ProductsSection() {
       price: product.price,
       type: "oil",
       viscosity: product.viscosity,
-    })
-  }
+    });
+  };
 
   return (
     <section id="products" className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/5 to-background" />
-      
+
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -135,14 +135,18 @@ export function ProductsSection() {
             >
               <div className="relative h-full bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
                 {/* Badge */}
-                <div className={`absolute top-4 z-10 ${isRTL ? 'right-4' : 'left-4'}`}>
+                <div
+                  className={`absolute top-4 z-10 ${isRTL ? "right-4" : "left-4"}`}
+                >
                   <span className="px-3 py-1 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full">
                     {language === "fa" ? product.badgeFA : product.badge}
                   </span>
                 </div>
 
                 {/* Product Image Area */}
-                <div className={`relative h-48 bg-gradient-to-br ${product.gradient} flex items-center justify-center overflow-hidden`}>
+                <div
+                  className={`relative h-48 bg-gradient-to-br ${product.gradient} flex items-center justify-center overflow-hidden`}
+                >
                   <motion.div
                     whileHover={{ scale: 1.05, rotate: 2 }}
                     transition={{ type: "spring", stiffness: 300 }}
@@ -152,8 +156,12 @@ export function ProductsSection() {
                     <div className="w-24 h-32 relative">
                       <div className="absolute inset-0 bg-gradient-to-b from-secondary via-card to-secondary rounded-xl border border-border/30">
                         <div className="absolute inset-x-2 top-8 bottom-8 bg-gradient-to-br from-primary/30 to-primary/10 rounded-lg flex flex-col items-center justify-center">
-                          <div className="text-primary font-bold text-sm">APEX</div>
-                          <div className="text-foreground font-bold text-xs mt-1">{product.viscosity}</div>
+                          <div className="text-primary font-bold text-sm">
+                            APEX
+                          </div>
+                          <div className="text-foreground font-bold text-xs mt-1">
+                            {product.viscosity}
+                          </div>
                         </div>
                         <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-4 bg-muted rounded-t-md" />
                       </div>
@@ -161,14 +169,18 @@ export function ProductsSection() {
                   </motion.div>
 
                   {/* Floating icon */}
-                  <div className={`absolute bottom-4 ${isRTL ? 'left-4' : 'right-4'}`}>
+                  <div
+                    className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"}`}
+                  >
                     <product.icon className="h-6 w-6 text-primary/50" />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <div className={`flex items-center gap-2 mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <div
+                    className={`flex items-center gap-2 mb-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                  >
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
                         <Star
@@ -186,16 +198,26 @@ export function ProductsSection() {
                     </span>
                   </div>
 
-                  <h3 className={`text-lg font-bold text-foreground group-hover:text-primary transition-colors ${isRTL ? 'text-right' : ''}`}>
+                  <h3
+                    className={`text-lg font-bold text-foreground group-hover:text-primary transition-colors ${isRTL ? "text-right" : ""}`}
+                  >
                     {language === "fa" ? product.nameFA : product.name}
                   </h3>
-                  
-                  <p className={`text-sm text-muted-foreground mt-1 ${isRTL ? 'text-right' : ''}`}>
-                    {product.viscosity} • {language === "fa" ? product.typeFA : product.type}
+
+                  <p
+                    className={`text-sm text-muted-foreground mt-1 ${isRTL ? "text-right" : ""}`}
+                  >
+                    {product.viscosity} •{" "}
+                    {language === "fa" ? product.typeFA : product.type}
                   </p>
 
-                  <div className={`flex flex-wrap gap-1.5 mt-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    {(language === "fa" ? product.featuresFA : product.features).map((feature) => (
+                  <div
+                    className={`flex flex-wrap gap-1.5 mt-3 ${isRTL ? "flex-row-reverse" : ""}`}
+                  >
+                    {(language === "fa"
+                      ? product.featuresFA
+                      : product.features
+                    ).map((feature) => (
                       <span
                         key={feature}
                         className="px-2 py-0.5 text-[10px] font-medium bg-secondary text-muted-foreground rounded"
@@ -205,12 +227,16 @@ export function ProductsSection() {
                     ))}
                   </div>
 
-                  <div className={`flex items-center justify-between mt-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <div className={isRTL ? 'text-right' : ''}>
+                  <div
+                    className={`flex items-center justify-between mt-6 ${isRTL ? "flex-row-reverse" : ""}`}
+                  >
+                    <div className={isRTL ? "text-right" : ""}>
                       <span className="text-2xl font-bold text-foreground">
                         ${product.price}
                       </span>
-                      <span className={`text-sm text-muted-foreground line-through ${isRTL ? 'mr-2' : 'ml-2'}`}>
+                      <span
+                        className={`text-sm text-muted-foreground line-through ${isRTL ? "mr-2" : "ml-2"}`}
+                      >
                         ${product.originalPrice}
                       </span>
                     </div>
@@ -218,9 +244,11 @@ export function ProductsSection() {
 
                   <Button
                     onClick={() => handleAddToCart(product)}
-                    className={`w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold group/btn ${isRTL ? 'flex-row-reverse' : ''}`}
+                    className={`w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold group/btn ${isRTL ? "flex-row-reverse" : ""}`}
                   >
-                    <ShoppingCart className={`h-4 w-4 group-hover/btn:scale-110 transition-transform ${isRTL ? 'ml-2' : 'mr-2'}`} />
+                    <ShoppingCart
+                      className={`h-4 w-4 group-hover/btn:scale-110 transition-transform ${isRTL ? "ml-2" : "mr-2"}`}
+                    />
                     {t.products.addToCart}
                   </Button>
                 </div>
@@ -249,5 +277,5 @@ export function ProductsSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

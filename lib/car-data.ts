@@ -1,36 +1,45 @@
 export type CarEngine = {
-  id: string
-  name: string
-  displacement: string
-  fuelType: "gasoline" | "diesel" | "hybrid"
+  id: string;
+  name: string;
+  displacement: string;
+  fuelType: "gasoline" | "diesel" | "hybrid";
   recommendedOil: {
-    viscosity: string
-    type: string
-    capacity: string
-    specification: string
-    productId: string
-  }
+    viscosity: string;
+    type: string;
+    capacity: string;
+    specification: string;
+    productId: string;
+  };
   recommendedFilters: {
-    oilFilter: { partNumber: string; productId: string }
-    airFilter: { partNumber: string; productId: string }
-    cabinFilter: { partNumber: string; productId: string }
-  }
+    oilFilter: { partNumber: string; productId: string };
+    airFilter: { partNumber: string; productId: string };
+    cabinFilter: { partNumber: string; productId: string };
+  };
+};
+
+export interface Car {
+  id: number;
+  brand: string;
+  model: string;
+  year: number;
+  engine: string;
+  description: string;
 }
 
 export type CarModel = {
-  id: string
-  name: string
-  years: number[]
-  engines: CarEngine[]
-}
+  id: string;
+  name: string;
+  years: number[];
+  engines: CarEngine[];
+};
 
 export type CarBrand = {
-  id: string
-  name: string
-  nameFA: string
-  logo?: string
-  models: CarModel[]
-}
+  id: string;
+  name: string;
+  nameFA: string;
+  logo?: string;
+  models: CarModel[];
+};
 
 export const carDatabase: CarBrand[] = [
   {
@@ -57,9 +66,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1001", productId: "filter-oil-1001" },
-              airFilter: { partNumber: "APX-AF-2001", productId: "filter-air-2001" },
-              cabinFilter: { partNumber: "APX-CF-3001", productId: "filter-cabin-3001" },
+              oilFilter: {
+                partNumber: "APX-OF-1001",
+                productId: "filter-oil-1001",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2001",
+                productId: "filter-air-2001",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3001",
+                productId: "filter-cabin-3001",
+              },
             },
           },
           {
@@ -75,9 +93,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1002", productId: "filter-oil-1002" },
-              airFilter: { partNumber: "APX-AF-2002", productId: "filter-air-2002" },
-              cabinFilter: { partNumber: "APX-CF-3001", productId: "filter-cabin-3001" },
+              oilFilter: {
+                partNumber: "APX-OF-1002",
+                productId: "filter-oil-1002",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2002",
+                productId: "filter-air-2002",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3001",
+                productId: "filter-cabin-3001",
+              },
             },
           },
         ],
@@ -100,9 +127,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1003", productId: "filter-oil-1003" },
-              airFilter: { partNumber: "APX-AF-2003", productId: "filter-air-2003" },
-              cabinFilter: { partNumber: "APX-CF-3002", productId: "filter-cabin-3002" },
+              oilFilter: {
+                partNumber: "APX-OF-1003",
+                productId: "filter-oil-1003",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2003",
+                productId: "filter-air-2003",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3002",
+                productId: "filter-cabin-3002",
+              },
             },
           },
         ],
@@ -125,9 +161,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1004", productId: "filter-oil-1004" },
-              airFilter: { partNumber: "APX-AF-2004", productId: "filter-air-2004" },
-              cabinFilter: { partNumber: "APX-CF-3003", productId: "filter-cabin-3003" },
+              oilFilter: {
+                partNumber: "APX-OF-1004",
+                productId: "filter-oil-1004",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2004",
+                productId: "filter-air-2004",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3003",
+                productId: "filter-cabin-3003",
+              },
             },
           },
         ],
@@ -158,9 +203,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1005", productId: "filter-oil-1005" },
-              airFilter: { partNumber: "APX-AF-2005", productId: "filter-air-2005" },
-              cabinFilter: { partNumber: "APX-CF-3004", productId: "filter-cabin-3004" },
+              oilFilter: {
+                partNumber: "APX-OF-1005",
+                productId: "filter-oil-1005",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2005",
+                productId: "filter-air-2005",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3004",
+                productId: "filter-cabin-3004",
+              },
             },
           },
           {
@@ -176,9 +230,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1006", productId: "filter-oil-1006" },
-              airFilter: { partNumber: "APX-AF-2006", productId: "filter-air-2006" },
-              cabinFilter: { partNumber: "APX-CF-3004", productId: "filter-cabin-3004" },
+              oilFilter: {
+                partNumber: "APX-OF-1006",
+                productId: "filter-oil-1006",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2006",
+                productId: "filter-air-2006",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3004",
+                productId: "filter-cabin-3004",
+              },
             },
           },
         ],
@@ -201,9 +264,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1007", productId: "filter-oil-1007" },
-              airFilter: { partNumber: "APX-AF-2007", productId: "filter-air-2007" },
-              cabinFilter: { partNumber: "APX-CF-3005", productId: "filter-cabin-3005" },
+              oilFilter: {
+                partNumber: "APX-OF-1007",
+                productId: "filter-oil-1007",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2007",
+                productId: "filter-air-2007",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3005",
+                productId: "filter-cabin-3005",
+              },
             },
           },
         ],
@@ -234,9 +306,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1008", productId: "filter-oil-1008" },
-              airFilter: { partNumber: "APX-AF-2008", productId: "filter-air-2008" },
-              cabinFilter: { partNumber: "APX-CF-3006", productId: "filter-cabin-3006" },
+              oilFilter: {
+                partNumber: "APX-OF-1008",
+                productId: "filter-oil-1008",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2008",
+                productId: "filter-air-2008",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3006",
+                productId: "filter-cabin-3006",
+              },
             },
           },
           {
@@ -252,9 +333,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1009", productId: "filter-oil-1009" },
-              airFilter: { partNumber: "APX-AF-2009", productId: "filter-air-2009" },
-              cabinFilter: { partNumber: "APX-CF-3006", productId: "filter-cabin-3006" },
+              oilFilter: {
+                partNumber: "APX-OF-1009",
+                productId: "filter-oil-1009",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2009",
+                productId: "filter-air-2009",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3006",
+                productId: "filter-cabin-3006",
+              },
             },
           },
         ],
@@ -277,9 +367,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1010", productId: "filter-oil-1010" },
-              airFilter: { partNumber: "APX-AF-2010", productId: "filter-air-2010" },
-              cabinFilter: { partNumber: "APX-CF-3007", productId: "filter-cabin-3007" },
+              oilFilter: {
+                partNumber: "APX-OF-1010",
+                productId: "filter-oil-1010",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2010",
+                productId: "filter-air-2010",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3007",
+                productId: "filter-cabin-3007",
+              },
             },
           },
         ],
@@ -310,9 +409,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1011", productId: "filter-oil-1011" },
-              airFilter: { partNumber: "APX-AF-2011", productId: "filter-air-2011" },
-              cabinFilter: { partNumber: "APX-CF-3008", productId: "filter-cabin-3008" },
+              oilFilter: {
+                partNumber: "APX-OF-1011",
+                productId: "filter-oil-1011",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2011",
+                productId: "filter-air-2011",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3008",
+                productId: "filter-cabin-3008",
+              },
             },
           },
         ],
@@ -335,9 +443,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1012", productId: "filter-oil-1012" },
-              airFilter: { partNumber: "APX-AF-2012", productId: "filter-air-2012" },
-              cabinFilter: { partNumber: "APX-CF-3009", productId: "filter-cabin-3009" },
+              oilFilter: {
+                partNumber: "APX-OF-1012",
+                productId: "filter-oil-1012",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2012",
+                productId: "filter-air-2012",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3009",
+                productId: "filter-cabin-3009",
+              },
             },
           },
         ],
@@ -368,9 +485,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1013", productId: "filter-oil-1013" },
-              airFilter: { partNumber: "APX-AF-2013", productId: "filter-air-2013" },
-              cabinFilter: { partNumber: "APX-CF-3010", productId: "filter-cabin-3010" },
+              oilFilter: {
+                partNumber: "APX-OF-1013",
+                productId: "filter-oil-1013",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2013",
+                productId: "filter-air-2013",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3010",
+                productId: "filter-cabin-3010",
+              },
             },
           },
           {
@@ -386,9 +512,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1014", productId: "filter-oil-1014" },
-              airFilter: { partNumber: "APX-AF-2014", productId: "filter-air-2014" },
-              cabinFilter: { partNumber: "APX-CF-3010", productId: "filter-cabin-3010" },
+              oilFilter: {
+                partNumber: "APX-OF-1014",
+                productId: "filter-oil-1014",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2014",
+                productId: "filter-air-2014",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3010",
+                productId: "filter-cabin-3010",
+              },
             },
           },
         ],
@@ -411,9 +546,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1015", productId: "filter-oil-1015" },
-              airFilter: { partNumber: "APX-AF-2015", productId: "filter-air-2015" },
-              cabinFilter: { partNumber: "APX-CF-3011", productId: "filter-cabin-3011" },
+              oilFilter: {
+                partNumber: "APX-OF-1015",
+                productId: "filter-oil-1015",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2015",
+                productId: "filter-air-2015",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3011",
+                productId: "filter-cabin-3011",
+              },
             },
           },
         ],
@@ -444,9 +588,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1016", productId: "filter-oil-1016" },
-              airFilter: { partNumber: "APX-AF-2016", productId: "filter-air-2016" },
-              cabinFilter: { partNumber: "APX-CF-3012", productId: "filter-cabin-3012" },
+              oilFilter: {
+                partNumber: "APX-OF-1016",
+                productId: "filter-oil-1016",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2016",
+                productId: "filter-air-2016",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3012",
+                productId: "filter-cabin-3012",
+              },
             },
           },
         ],
@@ -469,9 +622,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1017", productId: "filter-oil-1017" },
-              airFilter: { partNumber: "APX-AF-2017", productId: "filter-air-2017" },
-              cabinFilter: { partNumber: "APX-CF-3013", productId: "filter-cabin-3013" },
+              oilFilter: {
+                partNumber: "APX-OF-1017",
+                productId: "filter-oil-1017",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2017",
+                productId: "filter-air-2017",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3013",
+                productId: "filter-cabin-3013",
+              },
             },
           },
         ],
@@ -501,9 +663,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1018", productId: "filter-oil-1018" },
-              airFilter: { partNumber: "APX-AF-2018", productId: "filter-air-2018" },
-              cabinFilter: { partNumber: "APX-CF-3014", productId: "filter-cabin-3014" },
+              oilFilter: {
+                partNumber: "APX-OF-1018",
+                productId: "filter-oil-1018",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2018",
+                productId: "filter-air-2018",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3014",
+                productId: "filter-cabin-3014",
+              },
             },
           },
         ],
@@ -526,9 +697,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1019", productId: "filter-oil-1019" },
-              airFilter: { partNumber: "APX-AF-2019", productId: "filter-air-2019" },
-              cabinFilter: { partNumber: "APX-CF-3015", productId: "filter-cabin-3015" },
+              oilFilter: {
+                partNumber: "APX-OF-1019",
+                productId: "filter-oil-1019",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2019",
+                productId: "filter-air-2019",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3015",
+                productId: "filter-cabin-3015",
+              },
             },
           },
         ],
@@ -558,9 +738,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1020", productId: "filter-oil-1020" },
-              airFilter: { partNumber: "APX-AF-2020", productId: "filter-air-2020" },
-              cabinFilter: { partNumber: "APX-CF-3016", productId: "filter-cabin-3016" },
+              oilFilter: {
+                partNumber: "APX-OF-1020",
+                productId: "filter-oil-1020",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2020",
+                productId: "filter-air-2020",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3016",
+                productId: "filter-cabin-3016",
+              },
             },
           },
           {
@@ -576,9 +765,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-extreme",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1021", productId: "filter-oil-1021" },
-              airFilter: { partNumber: "APX-AF-2021", productId: "filter-air-2021" },
-              cabinFilter: { partNumber: "APX-CF-3016", productId: "filter-cabin-3016" },
+              oilFilter: {
+                partNumber: "APX-OF-1021",
+                productId: "filter-oil-1021",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2021",
+                productId: "filter-air-2021",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3016",
+                productId: "filter-cabin-3016",
+              },
             },
           },
         ],
@@ -601,9 +799,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1022", productId: "filter-oil-1022" },
-              airFilter: { partNumber: "APX-AF-2022", productId: "filter-air-2022" },
-              cabinFilter: { partNumber: "APX-CF-3017", productId: "filter-cabin-3017" },
+              oilFilter: {
+                partNumber: "APX-OF-1022",
+                productId: "filter-oil-1022",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2022",
+                productId: "filter-air-2022",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3017",
+                productId: "filter-cabin-3017",
+              },
             },
           },
         ],
@@ -633,9 +840,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-pro-racing",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1023", productId: "filter-oil-1023" },
-              airFilter: { partNumber: "APX-AF-2023", productId: "filter-air-2023" },
-              cabinFilter: { partNumber: "APX-CF-3018", productId: "filter-cabin-3018" },
+              oilFilter: {
+                partNumber: "APX-OF-1023",
+                productId: "filter-oil-1023",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2023",
+                productId: "filter-air-2023",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3018",
+                productId: "filter-cabin-3018",
+              },
             },
           },
           {
@@ -651,9 +867,18 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-extreme",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1024", productId: "filter-oil-1024" },
-              airFilter: { partNumber: "APX-AF-2024", productId: "filter-air-2024" },
-              cabinFilter: { partNumber: "APX-CF-3018", productId: "filter-cabin-3018" },
+              oilFilter: {
+                partNumber: "APX-OF-1024",
+                productId: "filter-oil-1024",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2024",
+                productId: "filter-air-2024",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3018",
+                productId: "filter-cabin-3018",
+              },
             },
           },
         ],
@@ -683,13 +908,22 @@ export const carDatabase: CarBrand[] = [
               productId: "apex-elite-gt",
             },
             recommendedFilters: {
-              oilFilter: { partNumber: "APX-OF-1025", productId: "filter-oil-1025" },
-              airFilter: { partNumber: "APX-AF-2025", productId: "filter-air-2025" },
-              cabinFilter: { partNumber: "APX-CF-3019", productId: "filter-cabin-3019" },
+              oilFilter: {
+                partNumber: "APX-OF-1025",
+                productId: "filter-oil-1025",
+              },
+              airFilter: {
+                partNumber: "APX-AF-2025",
+                productId: "filter-air-2025",
+              },
+              cabinFilter: {
+                partNumber: "APX-CF-3019",
+                productId: "filter-cabin-3019",
+              },
             },
           },
         ],
       },
     ],
   },
-]
+];
