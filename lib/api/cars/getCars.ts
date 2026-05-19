@@ -1,13 +1,6 @@
-import { supabase } from "@/lib/supabase";
+import { apiRequest } from "@/lib/api/http";
 import type { Car } from "./types";
 
 export async function getCars(): Promise<Car[]> {
-  const { data, error } = await supabase.from("cars").select("*");
-
-  if (error) {
-    console.error(error);
-    return [];
-  }
-
-  return data;
+  return apiRequest<Car[]>("/api/cars");
 }

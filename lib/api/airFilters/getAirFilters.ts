@@ -1,13 +1,6 @@
-import { supabase } from "@/lib/supabase";
+import { getProducts } from "@/lib/api/products/getProducts";
 import type { AirFilter } from "./types";
 
 export async function getAirFilters(): Promise<AirFilter[]> {
-  const { data, error } = await supabase.from("air-filters").select("*");
-
-  if (error) {
-    console.error("Supabase select error:", error);
-    throw new Error(error.message);
-  }
-
-  return data ?? [];
+  return getProducts("airFilters") as Promise<AirFilter[]>;
 }

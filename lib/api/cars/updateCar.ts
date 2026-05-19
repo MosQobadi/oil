@@ -1,18 +1,10 @@
-import { supabase } from "@/lib/supabase";
+import { apiRequest } from "@/lib/api/http";
+import type { Car } from "./types";
 import type { CarUpdatePayload } from "./types";
 
 export async function updateCar(car: CarUpdatePayload) {
-  const { id, ...updates } = car;
-  const { data, error } = await supabase
-    .from("cars")
-    .update(updates)
-    .eq("id", id)
-    .select();
-
-  if (error) {
-    console.error("Supabase update error:", error);
-    throw new Error(error.message);
-  }
-
-  return data;
+  return apiRequest<Car[]>("/api/cars", {
+    method: "PATCH",
+    body: JSON.stringify(car),
+  });
 }

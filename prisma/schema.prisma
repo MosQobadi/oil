@@ -6,11 +6,75 @@ datasource db {
   provider = "postgresql"
 }
 
-model Oil {
+model Car {
   id          Int      @id @default(autoincrement())
-  name        String
   brand       String
-  viscosity   String
-  price       Float
+  model       String
+  year        Int
+  engine      String?
+  description String?
+  imageUrl    String?
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  recommendations CarProductRecommendation[]
+
+  @@index([brand, model, year])
+}
+
+model Product {
+  id            Int             @id @default(autoincrement())
+  brand         String
+  name          String
+  model         String?
+  price         Decimal         @db.Decimal(10, 2)
+  badge         String?
+  imageUrl      String?
+  description   String?
+  category      ProductCategory
+  isActive      Boolean         @default(true)
+  replacementId Int?
+  replacement   Product?        @relation("ProductReplacement", fields: [replacementId], references: [id], onDelete: SetNull)
+  replacedBy    Product[]       @relation("ProductReplacement")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  recommendations CarProductRecommendation[]
+
+  @@index([category])
+  @@index([brand])
+  @@index([isActive])
+}
+
+model CarProductRecommendation {
+  id        Int                @id @default(autoincrement())
+  carId     Int
+  productId Int
+  type      RecommendationType
+  priority  Int                @default(1)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  car     Car     @relation(fields: [carId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@unique([carId, type, priority])
+  @@index([carId])
+  @@index([productId])
+}
+
+enum ProductCategory {
+  OIL
+  OIL_FILTER
+  AIR_FILTER
+  CABIN_FILTER
+  FUEL_FILTER
+}
+
+enum RecommendationType {
+  SUGGESTED_OIL
+  SUGGESTED_OIL_FILTER
+  SUGGESTED_AIR_FILTER
+  SUGGESTED_CABIN_FILTER
+  SUGGESTED_FUEL_FILTER
 }

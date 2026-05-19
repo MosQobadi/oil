@@ -1,16 +1,5 @@
-import { supabase } from "@/lib/supabase";
+import { deleteProduct } from "@/lib/api/products/deleteProduct";
 
 export async function deleteOilFilter(id: number) {
-  const { data, error } = await supabase
-    .from("oil-filters")
-    .delete()
-    .eq("id", id)
-    .select();
-
-  if (error) {
-    console.error("Supabase delete error:", error);
-    throw new Error(error.message);
-  }
-
-  return data;
+  return deleteProduct("oilFilters", id);
 }

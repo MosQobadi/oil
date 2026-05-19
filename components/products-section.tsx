@@ -218,12 +218,17 @@ export function ProductsSection() {
                     >
                       <div className="absolute inset-0 bg-gradient-to-b from-secondary via-card to-secondary rounded-3xl border border-border/20" />
                       <div className="relative z-10 text-center">
-                        <div className="text-primary font-bold text-xl mb-2">
+                        <img
+                          className="w-30"
+                          src={product.imageUrl || "/placeholder-image.jpg"}
+                          alt={product.name}
+                        />
+                        {/* <div className="text-primary font-bold text-xl mb-2">
                           APEX
                         </div>
                         <div className="text-foreground font-semibold text-sm">
                           {currentTab.typeLabel}
-                        </div>
+                        </div> */}
                       </div>
                       <div
                         className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"}`}

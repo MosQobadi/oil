@@ -6,4 +6,7 @@ export interface BaseProduct {
   model: string;
   price: number;
   badge: string;
+  imageUrl?: string;
+  description?: string;
+  isActive?: boolean;
 }

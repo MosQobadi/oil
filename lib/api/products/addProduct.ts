@@ -1,20 +1,12 @@
-import { supabase } from "@/lib/supabase";
-import type { ProductCategory, ProductInsertPayload } from "./types";
-import { productTableName } from "./utils";
+import { apiRequest } from "@/lib/api/http";
+import type { Product, ProductCategory, ProductInsertPayload } from "./types";
 
 export async function addProduct(
   category: ProductCategory,
   product: ProductInsertPayload,
 ) {
-  const { data, error } = await supabase
-    .from(productTableName(category))
-    .insert([product])
-    .select();
-
-  if (error) {
-    console.error("Supabase insert error:", error);
-    throw new Error(error.message);
-  }
-
-  return data;
+  return apiRequest<Product[]>(`/api/products/${category}`, {
+    method: "POST",
+    body: JSON.stringify(product),
+  });
 }

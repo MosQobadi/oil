@@ -6,6 +6,8 @@ export interface CabinFilter {
   price: number;
   badge: string;
   imageUrl?: string;
+  description?: string;
+  isActive?: boolean;
 }
 
 export interface CabinFilterInsertPayload {

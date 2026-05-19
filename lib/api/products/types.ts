@@ -1,8 +1,4 @@
-export type ProductCategory =
-  | "oils"
-  | "oilFilters"
-  | "airFilters"
-  | "cabinFilters";
+export type { ProductCategory } from "@/lib/api/product-category";
 
 export interface Product {
   id: number;
@@ -11,6 +7,9 @@ export interface Product {
   model: string;
   price: number;
   badge: string;
+  imageUrl?: string;
+  description?: string;
+  isActive?: boolean;
 }
 
 export interface ProductInsertPayload {
@@ -19,6 +18,9 @@ export interface ProductInsertPayload {
   model?: string;
   price?: number;
   badge?: string;
+  imageUrl?: string;
+  description?: string;
+  isActive?: boolean;
   [key: string]: unknown;
 }
 

@@ -6,6 +6,8 @@ export interface Oil {
   price: number;
   badge: string;
   imageUrl?: string;
+  description?: string;
+  isActive?: boolean;
 }
 
 export interface OilInsertPayload {

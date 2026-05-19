@@ -22,6 +22,7 @@ import { Footer } from "@/components/footer";
 import { useLanguage } from "@/lib/language-context";
 import { useCart } from "@/lib/cart-context";
 import { allProducts, Product } from "@/lib/products-data";
+import type { TranslationKeys } from "@/lib/translations";
 
 type TabKey = "engine-oil" | "oil-filter" | "air-cabin-filter";
 
@@ -486,7 +487,7 @@ function ProductCard({
   language: string;
   isRTL: boolean;
   onAddToCart: () => void;
-  t: typeof import("@/lib/translations").translations.en;
+  t: TranslationKeys;
 }) {
   return (
     <div className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all">

@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import { addCar } from "@/lib/api/cars/addCar";
-import { deleteCar } from "@/lib/api/cars/deleteCar";
-import { getCars } from "@/lib/api/cars/getCars";
-import { updateCar } from "@/lib/api/cars/updateCar";
+import {
+  createCar,
+  deleteCarById,
+  listCars,
+  updateCarById,
+} from "@/lib/services/cars.service";
 
 export async function GET() {
   try {
-    const data = await getCars();
+    const data = await listCars();
     return NextResponse.json({ data });
   } catch (error) {
     return NextResponse.json(
@@ -21,7 +23,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const carData = await request.json();
-    const data = await addCar(carData);
+    const data = await createCar(carData);
 
     return NextResponse.json({ data });
   } catch (error) {
@@ -35,7 +37,7 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
   try {
     const carData = await request.json();
-    const data = await updateCar(carData);
+    const data = await updateCarById(carData);
 
     return NextResponse.json({ data });
   } catch (error) {
@@ -51,7 +53,7 @@ export async function PATCH(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { id } = await request.json();
-    const data = await deleteCar(id);
+    const data = await deleteCarById(id);
 
     return NextResponse.json({ data });
   } catch (error) {

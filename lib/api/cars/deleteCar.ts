@@ -1,16 +1,9 @@
-import { supabase } from "@/lib/supabase";
+import { apiRequest } from "@/lib/api/http";
+import type { Car } from "./types";
 
 export async function deleteCar(id: number) {
-  const { data, error } = await supabase
-    .from("cars")
-    .delete()
-    .eq("id", id)
-    .select();
-
-  if (error) {
-    console.error("Supabase delete error:", error);
-    throw new Error(error.message);
-  }
-
-  return data;
+  return apiRequest<Car[]>("/api/cars", {
+    method: "DELETE",
+    body: JSON.stringify({ id }),
+  });
 }
