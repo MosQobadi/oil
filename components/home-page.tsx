@@ -9,7 +9,8 @@ import { FAQSection } from "@/components/faq-section";
 import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
 import { FloatingCTA } from "@/components/floating-cta";
-import { CarFinderSection } from "./car-finder/index";
+import { CarFinderSection } from "./car-finder";
+// import { CarFinderSection } from "./car-finder/car-finder-section";
 
 export default function HomePage({
   carsSection,

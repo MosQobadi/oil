@@ -1,32 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Car, ChevronDown, Search } from "lucide-react";
-
+import { Car as CarIcon, ChevronDown, Search } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Input } from "@/components/ui/input";
+import { useCars } from "@/lib/api/cars/queries";
+import type { Car } from "@/lib/api/cars/types";
 
-export interface Car {
-  id: number;
-  brand: string;
-  model: string;
-  year: number;
-  engine: string;
-  description: string;
-}
-
-interface CarFinderClientProps {
-  cars: Car[];
-}
-
-export function CarFinderClient({ cars }: CarFinderClientProps) {
+export function CarFinderClient() {
+  const { data: cars = [], isLoading, isError } = useCars();
   const [searchQuery, setSearchQuery] = useState("");
-
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
-
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   // SEARCH FILTER
@@ -70,6 +56,26 @@ export function CarFinderClient({ cars }: CarFinderClientProps) {
       car.model === selectedModel &&
       car.year === selectedYear,
   );
+
+  if (isLoading) {
+    return (
+      <section className="py-24">
+        <div className="max-w-5xl mx-auto px-4 text-center text-muted-foreground">
+          Loading cars...
+        </div>
+      </section>
+    );
+  }
+
+  if (isError) {
+    return (
+      <section className="py-24">
+        <div className="max-w-5xl mx-auto px-4 text-center text-destructive">
+          Failed to load cars.
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24">
@@ -145,7 +151,7 @@ export function CarFinderClient({ cars }: CarFinderClientProps) {
           >
             <div className="flex items-center gap-4">
               <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Car className="h-7 w-7 text-primary" />
+                <CarIcon className="h-7 w-7 text-primary" />
               </div>
 
               <div>

@@ -1,84 +1,54 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShoppingCart, Star, Flame, Snowflake, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/lib/language-context";
 import { useCart } from "@/lib/cart-context";
+import { useOils } from "@/lib/api/oils/queries";
+import { useOilFilters } from "@/lib/api/oilFilters/queries";
+import { useAirFilters } from "@/lib/api/airFilters/queries";
+import { useCabinFilters } from "@/lib/api/cabinFilters/queries";
+import type { Oil } from "@/lib/api/oils/types";
+import type { OilFilter } from "@/lib/api/oilFilters/types";
+import type { AirFilter } from "@/lib/api/airFilters/types";
+import type { CabinFilter } from "@/lib/api/cabinFilters/types";
 
-const products = [
+type ProductCategory = "oils" | "oilFilters" | "airFilters" | "cabinFilters";
+
+type SectionProduct = Oil | OilFilter | AirFilter | CabinFilter;
+
+const tabConfig = [
   {
-    id: "apex-pro-racing",
-    name: "APEX Pro Racing",
-    nameFA: "APEX پرو ریسینگ",
-    viscosity: "5W-40",
-    type: "Full Synthetic",
-    typeFA: "فول سینتتیک",
-    price: 89.99,
-    originalPrice: 109.99,
-    rating: 4.9,
-    reviews: 2847,
-    badge: "Best Seller",
-    badgeFA: "پرفروش",
-    features: ["Track Proven", "High Performance"],
-    featuresFA: ["تست شده در پیست", "عملکرد بالا"],
+    id: "oils" as const,
+    label: "engineOil",
     icon: Flame,
     gradient: "from-primary/20 to-primary/5",
+    typeLabel: "Oil",
   },
   {
-    id: "apex-elite-gt",
-    name: "APEX Elite GT",
-    nameFA: "APEX الیت GT",
-    viscosity: "0W-20",
-    type: "Full Synthetic",
-    typeFA: "فول سینتتیک",
-    price: 79.99,
-    originalPrice: 99.99,
-    rating: 4.8,
-    reviews: 1923,
-    badge: "Eco Choice",
-    badgeFA: "انتخاب اقتصادی",
-    features: ["Fuel Economy", "Low Emissions"],
-    featuresFA: ["صرفه‌جویی سوخت", "آلایندگی کم"],
+    id: "oilFilters" as const,
+    label: "oilFilter",
     icon: Zap,
     gradient: "from-accent/20 to-accent/5",
+    typeLabel: "Oil Filter",
   },
   {
-    id: "apex-extreme",
-    name: "APEX Extreme",
-    nameFA: "APEX اکستریم",
-    viscosity: "10W-60",
-    type: "Racing Formula",
-    typeFA: "فرمول مسابقه",
-    price: 129.99,
-    originalPrice: 159.99,
-    rating: 5.0,
-    reviews: 987,
-    badge: "Premium",
-    badgeFA: "ممتاز",
-    features: ["Extreme Heat", "Motorsport Grade"],
-    featuresFA: ["گرمای شدید", "درجه موتوراسپرت"],
-    icon: Flame,
-    gradient: "from-primary/30 to-primary/10",
-  },
-  {
-    id: "apex-winter-guard",
-    name: "APEX Winter Guard",
-    nameFA: "APEX وینتر گارد",
-    viscosity: "0W-40",
-    type: "Full Synthetic",
-    typeFA: "فول سینتتیک",
-    price: 74.99,
-    originalPrice: 94.99,
-    rating: 4.7,
-    reviews: 1456,
-    badge: "Cold Climate",
-    badgeFA: "آب و هوای سرد",
-    features: ["Arctic Tested", "Quick Start"],
-    featuresFA: ["تست قطب شمال", "استارت سریع"],
+    id: "airFilters" as const,
+    label: "airFilter",
     icon: Snowflake,
-    gradient: "from-blue-500/20 to-blue-500/5",
+    gradient: "from-sky-200/30 to-sky-200/5",
+    typeLabel: "Air Filter",
+  },
+  {
+    id: "cabinFilters" as const,
+    label: "cabinFilter",
+    icon: Star,
+    gradient: "from-emerald-200/30 to-emerald-200/5",
+    typeLabel: "Cabin Filter",
   },
 ];
 
@@ -86,14 +56,85 @@ export function ProductsSection() {
   const { t, language, isRTL } = useLanguage();
   const { addItem } = useCart();
 
-  const handleAddToCart = (product: (typeof products)[0]) => {
+  const {
+    data: oils = [],
+    isLoading: isOilsLoading,
+    isError: isOilsError,
+  } = useOils();
+
+  const {
+    data: oilFilters = [],
+    isLoading: isOilFiltersLoading,
+    isError: isOilFiltersError,
+  } = useOilFilters();
+
+  const {
+    data: airFilters = [],
+    isLoading: isAirFiltersLoading,
+    isError: isAirFiltersError,
+  } = useAirFilters();
+
+  const {
+    data: cabinFilters = [],
+    isLoading: isCabinFiltersLoading,
+    isError: isCabinFiltersError,
+  } = useCabinFilters();
+
+  const [selectedTab, setSelectedTab] = useState<ProductCategory>("oils");
+
+  const products =
+    selectedTab === "oils"
+      ? oils
+      : selectedTab === "oilFilters"
+        ? oilFilters
+        : selectedTab === "airFilters"
+          ? airFilters
+          : cabinFilters;
+
+  const isLoading =
+    selectedTab === "oils"
+      ? isOilsLoading
+      : selectedTab === "oilFilters"
+        ? isOilFiltersLoading
+        : selectedTab === "airFilters"
+          ? isAirFiltersLoading
+          : isCabinFiltersLoading;
+
+  const isError =
+    selectedTab === "oils"
+      ? isOilsError
+      : selectedTab === "oilFilters"
+        ? isOilFiltersError
+        : selectedTab === "airFilters"
+          ? isAirFiltersError
+          : isCabinFiltersError;
+
+  const currentTab = tabConfig.find((tab) => tab.id === selectedTab)!;
+
+  const handleAddToCart = (product: SectionProduct) => {
+    const typeMap: Record<ProductCategory, SectionProduct["id"]> = {
+      oils: product.id,
+      oilFilters: product.id,
+      airFilters: product.id,
+      cabinFilters: product.id,
+    };
+
+    const cartType =
+      selectedTab === "oils"
+        ? "oil"
+        : selectedTab === "oilFilters"
+          ? "oil-filter"
+          : selectedTab === "airFilters"
+            ? "air-filter"
+            : "cabin-filter";
+
     addItem({
-      id: product.id,
+      id: `${selectedTab}-${product.id}`,
       name: product.name,
-      nameFA: product.nameFA,
+      nameFA: product.name,
       price: product.price,
-      type: "oil",
-      viscosity: product.viscosity,
+      type: cartType,
+      specs: product.model,
     });
   };
 
@@ -122,140 +163,121 @@ export function ProductsSection() {
           </p>
         </motion.div>
 
-        {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product, index) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="relative h-full bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
-                {/* Badge */}
-                <div
-                  className={`absolute top-4 z-10 ${isRTL ? "right-4" : "left-4"}`}
-                >
-                  <span className="px-3 py-1 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full">
-                    {language === "fa" ? product.badgeFA : product.badge}
-                  </span>
-                </div>
+        <div className="mb-10">
+          <Tabs
+            value={selectedTab}
+            onValueChange={(value) => setSelectedTab(value as ProductCategory)}
+          >
+            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 p-1">
+              {tabConfig.map((tab) => (
+                <TabsTrigger key={tab.id} value={tab.id} className="text-sm">
+                  {t.products[tab.label as keyof typeof t.products]}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </div>
 
-                {/* Product Image Area */}
-                <div
-                  className={`relative h-48 bg-gradient-to-br ${product.gradient} flex items-center justify-center overflow-hidden`}
+        {isLoading ? (
+          <div className="rounded-3xl border border-border/50 bg-background p-12 text-center text-sm text-muted-foreground">
+            {t.common.loading}
+          </div>
+        ) : isError ? (
+          <div className="rounded-3xl border border-border/50 bg-background p-12 text-center text-sm text-destructive">
+            {t.common.error}
+          </div>
+        ) : products.length === 0 ? (
+          <div className="rounded-3xl border border-border/50 bg-background p-12 text-center text-sm text-muted-foreground">
+            {t.admin.noProducts}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((product, index) => {
+              const Icon = currentTab.icon;
+
+              return (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group"
                 >
-                  <motion.div
-                    whileHover={{ scale: 1.05, rotate: 2 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="relative"
-                  >
-                    {/* Simplified bottle */}
-                    <div className="w-24 h-32 relative">
-                      <div className="absolute inset-0 bg-gradient-to-b from-secondary via-card to-secondary rounded-xl border border-border/30">
-                        <div className="absolute inset-x-2 top-8 bottom-8 bg-gradient-to-br from-primary/30 to-primary/10 rounded-lg flex flex-col items-center justify-center">
-                          <div className="text-primary font-bold text-sm">
-                            APEX
-                          </div>
-                          <div className="text-foreground font-bold text-xs mt-1">
-                            {product.viscosity}
-                          </div>
+                  <div className="relative h-full bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
+                    <div
+                      className={`absolute top-4 z-10 ${isRTL ? "right-4" : "left-4"}`}
+                    >
+                      <span className="px-3 py-1 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full">
+                        {product.badge || currentTab.typeLabel}
+                      </span>
+                    </div>
+
+                    <div
+                      className={`relative h-48 bg-gradient-to-br ${currentTab.gradient} flex items-center justify-center overflow-hidden`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-b from-secondary via-card to-secondary rounded-3xl border border-border/20" />
+                      <div className="relative z-10 text-center">
+                        <div className="text-primary font-bold text-xl mb-2">
+                          APEX
                         </div>
-                        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-4 bg-muted rounded-t-md" />
+                        <div className="text-foreground font-semibold text-sm">
+                          {currentTab.typeLabel}
+                        </div>
+                      </div>
+                      <div
+                        className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"}`}
+                      >
+                        <Icon className="h-6 w-6 text-primary/60" />
                       </div>
                     </div>
-                  </motion.div>
 
-                  {/* Floating icon */}
-                  <div
-                    className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"}`}
-                  >
-                    <product.icon className="h-6 w-6 text-primary/50" />
-                  </div>
-                </div>
+                    <div className="p-6">
+                      <div className="mb-4 flex items-center justify-between">
+                        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                          {product.brand}
+                        </span>
+                        <span className="text-xs font-medium text-foreground">
+                          {currentTab.typeLabel}
+                        </span>
+                      </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <div
-                    className={`flex items-center gap-2 mb-2 ${isRTL ? "flex-row-reverse" : ""}`}
-                  >
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-3.5 w-3.5 ${
-                            i < Math.floor(product.rating)
-                              ? "text-primary fill-primary"
-                              : "text-muted"
-                          }`}
+                      <h3
+                        className={`text-xl font-semibold text-foreground ${isRTL ? "text-right" : ""}`}
+                      >
+                        {product.name}
+                      </h3>
+
+                      <p
+                        className={`text-sm text-muted-foreground mt-2 ${isRTL ? "text-right" : ""}`}
+                      >
+                        {t.carFinder.specification}: {product.model}
+                      </p>
+
+                      <div className="mt-6 flex items-center justify-between gap-4">
+                        <div className={isRTL ? "text-right" : ""}>
+                          <p className="text-2xl font-bold text-foreground">
+                            ${product?.price?.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <Button
+                        onClick={() => handleAddToCart(product)}
+                        className={`w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold ${isRTL ? "flex-row-reverse" : ""}`}
+                      >
+                        <ShoppingCart
+                          className={`h-4 w-4 transition-transform ${isRTL ? "ml-2" : "mr-2"}`}
                         />
-                      ))}
-                    </div>
-                    <span className="text-xs text-muted-foreground">
-                      ({product.reviews.toLocaleString()})
-                    </span>
-                  </div>
-
-                  <h3
-                    className={`text-lg font-bold text-foreground group-hover:text-primary transition-colors ${isRTL ? "text-right" : ""}`}
-                  >
-                    {language === "fa" ? product.nameFA : product.name}
-                  </h3>
-
-                  <p
-                    className={`text-sm text-muted-foreground mt-1 ${isRTL ? "text-right" : ""}`}
-                  >
-                    {product.viscosity} •{" "}
-                    {language === "fa" ? product.typeFA : product.type}
-                  </p>
-
-                  <div
-                    className={`flex flex-wrap gap-1.5 mt-3 ${isRTL ? "flex-row-reverse" : ""}`}
-                  >
-                    {(language === "fa"
-                      ? product.featuresFA
-                      : product.features
-                    ).map((feature) => (
-                      <span
-                        key={feature}
-                        className="px-2 py-0.5 text-[10px] font-medium bg-secondary text-muted-foreground rounded"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div
-                    className={`flex items-center justify-between mt-6 ${isRTL ? "flex-row-reverse" : ""}`}
-                  >
-                    <div className={isRTL ? "text-right" : ""}>
-                      <span className="text-2xl font-bold text-foreground">
-                        ${product.price}
-                      </span>
-                      <span
-                        className={`text-sm text-muted-foreground line-through ${isRTL ? "mr-2" : "ml-2"}`}
-                      >
-                        ${product.originalPrice}
-                      </span>
+                        {t.products.addToCart}
+                      </Button>
                     </div>
                   </div>
-
-                  <Button
-                    onClick={() => handleAddToCart(product)}
-                    className={`w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold group/btn ${isRTL ? "flex-row-reverse" : ""}`}
-                  >
-                    <ShoppingCart
-                      className={`h-4 w-4 group-hover/btn:scale-110 transition-transform ${isRTL ? "ml-2" : "mr-2"}`}
-                    />
-                    {t.products.addToCart}
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
 
         {/* View All Button */}
         <motion.div

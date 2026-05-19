@@ -1,8 +1,7 @@
-import { getCars } from "@/lib/api/cars/getCars";
+"use client";
+
 import { CarFinderClient } from "./car-finder-client";
 
-export async function CarFinderSection() {
-  const cars = await getCars();
-
-  return <CarFinderClient cars={cars} />;
+export function CarFinderSection() {
+  return <CarFinderClient />;
 }

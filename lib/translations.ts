@@ -16,7 +16,8 @@ export const translations = {
       badge: "Trusted by 50,000+ drivers",
       title1: "Engineered for",
       title2: "Peak Performance",
-      description: "Premium synthetic engine oils crafted with advanced molecular technology. Trusted by motorsport professionals and automotive enthusiasts worldwide.",
+      description:
+        "Premium synthetic engine oils crafted with advanced molecular technology. Trusted by motorsport professionals and automotive enthusiasts worldwide.",
       shopCollection: "Shop Collection",
       watchStory: "Watch Story",
       reviews: "4.9/5 from 12,000+ reviews",
@@ -26,7 +27,8 @@ export const translations = {
     products: {
       title: "Premium Engine Oils",
       subtitle: "Our Products",
-      description: "Engineered with cutting-edge molecular technology for maximum protection and performance.",
+      description:
+        "Engineered with cutting-edge molecular technology for maximum protection and performance.",
       viewAll: "View All Products",
       addToCart: "Add to Cart",
       bestSeller: "Best Seller",
@@ -48,25 +50,33 @@ export const translations = {
     benefits: {
       title: "Why APEX Oil?",
       subtitle: "The Benefits",
-      description: "Discover the advantages that set our premium oils apart from the competition.",
+      description:
+        "Discover the advantages that set our premium oils apart from the competition.",
       protection: "Superior Protection",
-      protectionDesc: "Advanced molecular shield technology provides 45% better wear protection than conventional oils.",
+      protectionDesc:
+        "Advanced molecular shield technology provides 45% better wear protection than conventional oils.",
       performance: "Peak Performance",
-      performanceDesc: "Optimized viscosity ensures maximum horsepower delivery and smooth engine operation.",
+      performanceDesc:
+        "Optimized viscosity ensures maximum horsepower delivery and smooth engine operation.",
       efficiency: "Fuel Efficiency",
-      efficiencyDesc: "Reduced friction means up to 5% better fuel economy compared to standard oils.",
+      efficiencyDesc:
+        "Reduced friction means up to 5% better fuel economy compared to standard oils.",
       longevity: "Extended Life",
-      longevityDesc: "Premium synthetic base oils allow for extended drain intervals up to 15,000 miles.",
+      longevityDesc:
+        "Premium synthetic base oils allow for extended drain intervals up to 15,000 miles.",
       cold: "Cold Start",
-      coldDesc: "Superior flow at low temperatures ensures instant protection from the first turn.",
+      coldDesc:
+        "Superior flow at low temperatures ensures instant protection from the first turn.",
       clean: "Engine Clean",
-      cleanDesc: "Advanced detergents keep your engine clean and free from harmful deposits.",
+      cleanDesc:
+        "Advanced detergents keep your engine clean and free from harmful deposits.",
     },
     // Why Choose Us
     whyUs: {
       title: "The APEX Difference",
       subtitle: "Why Choose Us",
-      description: "Four decades of excellence in automotive lubricant technology.",
+      description:
+        "Four decades of excellence in automotive lubricant technology.",
       reason1: "40+ Years of Innovation",
       reason1Desc: "Pioneering synthetic oil technology since 1984",
       reason2: "Motorsport Heritage",
@@ -76,7 +86,8 @@ export const translations = {
       reason4: "Sustainable Production",
       reason4Desc: "Committed to environmental responsibility",
       heritage: "Our Heritage",
-      heritageDesc: "Founded in Munich, Germany, APEX Oil has been at the forefront of lubricant technology for over four decades. Our commitment to excellence drives everything we do.",
+      heritageDesc:
+        "Founded in Munich, Germany, APEX Oil has been at the forefront of lubricant technology for over four decades. Our commitment to excellence drives everything we do.",
     },
     // Stats
     stats: {
@@ -89,14 +100,16 @@ export const translations = {
     reviews: {
       title: "What Drivers Say",
       subtitle: "Customer Reviews",
-      description: "Join thousands of satisfied customers who trust APEX for their engines.",
+      description:
+        "Join thousands of satisfied customers who trust APEX for their engines.",
       verified: "Verified Buyer",
     },
     // FAQ
     faq: {
       title: "Frequently Asked Questions",
       subtitle: "Got Questions?",
-      description: "Find answers to common questions about our products and services.",
+      description:
+        "Find answers to common questions about our products and services.",
       q1: "Which oil is right for my vehicle?",
       a1: "Use our Oil Finder tool or check your vehicle manual for the recommended viscosity grade. Our APEX Pro Racing (5W-40) suits most modern gasoline engines, while the APEX Elite GT (0W-20) is ideal for newer vehicles requiring low-viscosity oils.",
       q2: "How often should I change my oil?",
@@ -112,14 +125,16 @@ export const translations = {
     newsletter: {
       title: "Join the APEX Community",
       subtitle: "Stay Updated",
-      description: "Subscribe to get exclusive offers, maintenance tips, and the latest news.",
+      description:
+        "Subscribe to get exclusive offers, maintenance tips, and the latest news.",
       placeholder: "Enter your email",
       button: "Subscribe",
       privacy: "We respect your privacy. Unsubscribe anytime.",
     },
     // Footer
     footer: {
-      description: "Premium synthetic engine oils engineered for peak performance. Trusted by professionals and enthusiasts worldwide since 1984.",
+      description:
+        "Premium synthetic engine oils engineered for peak performance. Trusted by professionals and enthusiasts worldwide since 1984.",
       products: "Products",
       company: "Company",
       support: "Support",
@@ -153,7 +168,8 @@ export const translations = {
     carFinder: {
       title: "Find Perfect Oil for Your Car",
       subtitle: "Car Finder",
-      description: "Select your vehicle to see recommended products for optimal engine performance.",
+      description:
+        "Select your vehicle to see recommended products for optimal engine performance.",
       searchPlaceholder: "Search brand, model, or year...",
       selectBrand: "Select Brand",
       selectModel: "Select Model",
@@ -171,6 +187,59 @@ export const translations = {
       viewProduct: "View Product",
       specifications: "Specifications",
       yourCar: "Your Car",
+    },
+    // Admin
+    admin: {
+      title: "Admin Dashboard",
+      description:
+        "Manage products, inventory, and listings from one easy dashboard.",
+      addButton: "Add Car",
+      addProduct: "Add Product",
+      editProduct: "Edit Product",
+      addProductDescription: "Add a new product to your inventory.",
+      editProductDescription:
+        "Update product details and save changes to your catalog.",
+      deleteConfirmProduct: "Are you sure you want to delete this item?",
+      searchPlaceholder: "Search inventory or filter by keyword...",
+      tabs: {
+        cars: "Cars",
+        oils: "Oils",
+        oilFilters: "Oil Filters",
+        airFilters: "Air Filters",
+        cabinFilters: "Cabin Filters",
+      },
+      carListTitle: "Car Inventory",
+      carListDescription: "Browse, edit, and delete cars from your catalog.",
+      oilListTitle: "Oil Inventory",
+      oilListDescription: "Browse, edit, and delete oil products.",
+      oilFilterListTitle: "Oil Filter Inventory",
+      oilFilterListDescription: "Browse, edit, and delete oil filter products.",
+      airFilterListTitle: "Air Filter Inventory",
+      airFilterListDescription: "Browse, edit, and delete air filter products.",
+      cabinFilterListTitle: "Cabin Filter Inventory",
+      cabinFilterListDescription:
+        "Browse, edit, and delete cabin filter products.",
+      items: "items",
+      noCars: "No cars found.",
+      noProducts: "No products found.",
+      brand: "Brand",
+      name: "Name",
+      model: "Model",
+      price: "Price",
+      badge: "Badge",
+      year: "Year",
+      engine: "Engine",
+      detailsLabel: "Description",
+      image: "Image",
+      edit: "Edit",
+      delete: "Delete",
+      placeholderText: "Product management for this category is coming soon.",
+      editCar: "Edit Car",
+      addCar: "Add Car",
+      editDescription: "Update car details and save changes to your catalog.",
+      addDescription: "Add a new car to your inventory.",
+      addSuccess: "Saved successfully.",
+      deleteConfirm: "Are you sure you want to delete this car?",
     },
     // Products Page
     productsPage: {
@@ -278,7 +347,8 @@ export const translations = {
       badge: "مورد اعتماد بیش از ۵۰,۰۰۰ راننده",
       title1: "مهندسی شده برای",
       title2: "عملکرد بی‌نظیر",
-      description: "روغن موتور سینتتیک ممتاز ساخته شده با فناوری مولکولی پیشرفته. مورد اعتماد حرفه‌ای‌های موتوراسپرت و علاقمندان خودرو در سراسر جهان.",
+      description:
+        "روغن موتور سینتتیک ممتاز ساخته شده با فناوری مولکولی پیشرفته. مورد اعتماد حرفه‌ای‌های موتوراسپرت و علاقمندان خودرو در سراسر جهان.",
       shopCollection: "خرید مجموعه",
       watchStory: "تماشای داستان",
       reviews: "۴.۹/۵ از بیش از ۱۲,۰۰۰ نظر",
@@ -288,7 +358,8 @@ export const translations = {
     products: {
       title: "روغن موتورهای ممتاز",
       subtitle: "محصولات ما",
-      description: "مهندسی شده با فناوری مولکولی پیشرفته برای حداکثر محافظت و عملکرد.",
+      description:
+        "مهندسی شده با فناوری مولکولی پیشرفته برای حداکثر محافظت و عملکرد.",
       viewAll: "مشاهده همه محصولات",
       addToCart: "افزودن به سبد",
       bestSeller: "پرفروش",
@@ -310,19 +381,26 @@ export const translations = {
     benefits: {
       title: "چرا روغن APEX؟",
       subtitle: "مزایا",
-      description: "مزایایی را کشف کنید که روغن‌های ممتاز ما را از رقبا متمایز می‌کند.",
+      description:
+        "مزایایی را کشف کنید که روغن‌های ممتاز ما را از رقبا متمایز می‌کند.",
       protection: "محافظت برتر",
-      protectionDesc: "فناوری سپر مولکولی پیشرفته ۴۵٪ محافظت بهتر در برابر سایش نسبت به روغن‌های معمولی فراهم می‌کند.",
+      protectionDesc:
+        "فناوری سپر مولکولی پیشرفته ۴۵٪ محافظت بهتر در برابر سایش نسبت به روغن‌های معمولی فراهم می‌کند.",
       performance: "عملکرد اوج",
-      performanceDesc: "ویسکوزیته بهینه حداکثر قدرت موتور و عملکرد روان را تضمین می‌کند.",
+      performanceDesc:
+        "ویسکوزیته بهینه حداکثر قدرت موتور و عملکرد روان را تضمین می‌کند.",
       efficiency: "بهره‌وری سوخت",
-      efficiencyDesc: "اصطکاک کمتر به معنای تا ۵٪ صرفه‌جویی بهتر در سوخت نسبت به روغن‌های استاندارد است.",
+      efficiencyDesc:
+        "اصطکاک کمتر به معنای تا ۵٪ صرفه‌جویی بهتر در سوخت نسبت به روغن‌های استاندارد است.",
       longevity: "عمر طولانی",
-      longevityDesc: "روغن‌های پایه سینتتیک ممتاز امکان فاصله تعویض طولانی تا ۲۵,۰۰۰ کیلومتر را فراهم می‌کنند.",
+      longevityDesc:
+        "روغن‌های پایه سینتتیک ممتاز امکان فاصله تعویض طولانی تا ۲۵,۰۰۰ کیلومتر را فراهم می‌کنند.",
       cold: "استارت سرد",
-      coldDesc: "جریان برتر در دمای پایین محافظت فوری از اولین چرخش را تضمین می‌کند.",
+      coldDesc:
+        "جریان برتر در دمای پایین محافظت فوری از اولین چرخش را تضمین می‌کند.",
       clean: "تمیزی موتور",
-      cleanDesc: "پاک‌کننده‌های پیشرفته موتور شما را تمیز و عاری از رسوبات مضر نگه می‌دارند.",
+      cleanDesc:
+        "پاک‌کننده‌های پیشرفته موتور شما را تمیز و عاری از رسوبات مضر نگه می‌دارند.",
     },
     // Why Choose Us
     whyUs: {
@@ -338,7 +416,8 @@ export const translations = {
       reason4: "تولید پایدار",
       reason4Desc: "متعهد به مسئولیت زیست محیطی",
       heritage: "میراث ما",
-      heritageDesc: "APEX Oil که در مونیخ آلمان تأسیس شده، بیش از چهار دهه است که در خط مقدم فناوری روانکاری قرار دارد. تعهد ما به برتری همه چیز را که انجام می‌دهیم هدایت می‌کند.",
+      heritageDesc:
+        "APEX Oil که در مونیخ آلمان تأسیس شده، بیش از چهار دهه است که در خط مقدم فناوری روانکاری قرار دارد. تعهد ما به برتری همه چیز را که انجام می‌دهیم هدایت می‌کند.",
     },
     // Stats
     stats: {
@@ -351,7 +430,8 @@ export const translations = {
     reviews: {
       title: "نظرات رانندگان",
       subtitle: "نظرات مشتریان",
-      description: "به هزاران مشتری راضی بپیوندید که به APEX برای موتورهایشان اعتماد می‌کنند.",
+      description:
+        "به هزاران مشتری راضی بپیوندید که به APEX برای موتورهایشان اعتماد می‌کنند.",
       verified: "خریدار تایید شده",
     },
     // FAQ
@@ -374,14 +454,17 @@ export const translations = {
     newsletter: {
       title: "به جامعه APEX بپیوندید",
       subtitle: "به‌روز بمانید",
-      description: "برای دریافت پیشنهادات ویژه، نکات نگهداری و آخرین اخبار عضو شوید.",
+      description:
+        "برای دریافت پیشنهادات ویژه، نکات نگهداری و آخرین اخبار عضو شوید.",
       placeholder: "ایمیل خود را وارد کنید",
       button: "عضویت",
-      privacy: "ما به حریم خصوصی شما احترام می‌گذاریم. هر زمان می‌توانید لغو عضویت کنید.",
+      privacy:
+        "ما به حریم خصوصی شما احترام می‌گذاریم. هر زمان می‌توانید لغو عضویت کنید.",
     },
     // Footer
     footer: {
-      description: "روغن موتور سینتتیک ممتاز مهندسی شده برای عملکرد بی‌نظیر. مورد اعتماد حرفه‌ای‌ها و علاقمندان در سراسر جهان از سال ۱۹۸۴.",
+      description:
+        "روغن موتور سینتتیک ممتاز مهندسی شده برای عملکرد بی‌نظیر. مورد اعتماد حرفه‌ای‌ها و علاقمندان در سراسر جهان از سال ۱۹۸۴.",
       products: "محصولات",
       company: "شرکت",
       support: "پشتیبانی",
@@ -415,7 +498,8 @@ export const translations = {
     carFinder: {
       title: "روغن مناسب خودروی خود را پیدا کنید",
       subtitle: "راهنمای خودرو",
-      description: "خودروی خود را انتخاب کنید تا محصولات توصیه شده برای عملکرد بهینه موتور را ببینید.",
+      description:
+        "خودروی خود را انتخاب کنید تا محصولات توصیه شده برای عملکرد بهینه موتور را ببینید.",
       searchPlaceholder: "جستجوی برند، مدل یا سال...",
       selectBrand: "انتخاب برند",
       selectModel: "انتخاب مدل",
@@ -433,6 +517,58 @@ export const translations = {
       viewProduct: "مشاهده محصول",
       specifications: "مشخصات",
       yourCar: "خودروی شما",
+    },
+    // Admin
+    admin: {
+      title: "داشبورد مدیریت",
+      description: "محصولات، موجودی و لیست‌ها را از یک پنل ساده مدیریت کنید.",
+      addButton: "افزودن خودرو",
+      addProduct: "افزودن محصول",
+      editProduct: "ویرایش محصول",
+      addProductDescription: "محصول جدیدی به موجودی خود اضافه کنید.",
+      editProductDescription:
+        "جزئیات محصول را به‌روزرسانی و تغییرات را ذخیره کنید.",
+      deleteConfirmProduct:
+        "آیا مطمئن هستید که می‌خواهید این مورد را حذف کنید؟",
+      searchPlaceholder: "جستجو در موجودی یا فیلتر...",
+      tabs: {
+        cars: "خودروها",
+        oils: "روغن‌ها",
+        oilFilters: "فیلتر روغن",
+        airFilters: "فیلتر هوا",
+        cabinFilters: "فیلتر کابین",
+      },
+      carListTitle: "مخزن خودروها",
+      carListDescription: "خودروها را مرور، ویرایش و حذف کنید.",
+      oilListTitle: "مخزن روغن‌ها",
+      oilListDescription: "روغن‌ها را مرور، ویرایش و حذف کنید.",
+      oilFilterListTitle: "مخزن فیلتر روغن",
+      oilFilterListDescription: "فیلتر روغن‌ها را مرور، ویرایش و حذف کنید.",
+      airFilterListTitle: "مخزن فیلتر هوا",
+      airFilterListDescription: "فیلتر هوا را مرور، ویرایش و حذف کنید.",
+      cabinFilterListTitle: "مخزن فیلتر کابین",
+      cabinFilterListDescription: "فیلتر کابین را مرور، ویرایش و حذف کنید.",
+      items: "مورد",
+      noCars: "خودرویی پیدا نشد.",
+      noProducts: "محصولی پیدا نشد.",
+      brand: "برند",
+      name: "نام",
+      model: "مدل",
+      price: "قیمت",
+      badge: "نشان",
+      year: "سال",
+      engine: "موتور",
+      detailsLabel: "توضیحات",
+      image: "تصویر",
+      edit: "ویرایش",
+      delete: "حذف",
+      placeholderText: "مدیریت محصولات این دسته‌بندی به‌زودی فعال می‌شود.",
+      editCar: "ویرایش خودرو",
+      addCar: "افزودن خودرو",
+      editDescription: "جزئیات خودرو را به‌روزرسانی و تغییرات را ذخیره کنید.",
+      addDescription: "یک خودرو جدید به موجودی خود اضافه کنید.",
+      addSuccess: "با موفقیت ذخیره شد.",
+      deleteConfirm: "آیا مطمئن هستید که می‌خواهید این خودرو را حذف کنید؟",
     },
     // Products Page
     productsPage: {
@@ -523,7 +659,7 @@ export const translations = {
       learnMore: "بیشتر بدانید",
     },
   },
-} as const
+} as const;
 
-export type Language = keyof typeof translations
-export type TranslationKeys = typeof translations.en
+export type Language = keyof typeof translations;
+export type TranslationKeys = (typeof translations)[keyof typeof translations];

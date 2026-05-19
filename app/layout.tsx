@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import { ThemeProvider } from '@/lib/theme-context'
 import { CartProvider } from '@/lib/cart-context'
+import { ReactQueryProvider } from '@/lib/query-client'
 import './globals.css'
 
 const inter = Inter({ 
@@ -45,7 +46,9 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             <CartProvider>
-              {children}
+              <ReactQueryProvider>
+                {children}
+              </ReactQueryProvider>
             </CartProvider>
           </LanguageProvider>
         </ThemeProvider>

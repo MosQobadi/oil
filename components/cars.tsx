@@ -1,9 +1,17 @@
-import { getCars } from "@/lib/api/cars/getCars";
+"use client";
 
-export default async function CarPage() {
-  const cars = await getCars();
+import { useCars } from "@/lib/api/cars/queries";
 
-  console.log({ cars });
+export default function CarPage() {
+  const { data: cars = [], isLoading, isError } = useCars();
+
+  if (isLoading) {
+    return <div>Loading cars...</div>;
+  }
+
+  if (isError) {
+    return <div className="text-destructive">Failed to load cars.</div>;
+  }
 
   return (
     <div>
