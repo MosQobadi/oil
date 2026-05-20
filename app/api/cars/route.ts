@@ -5,6 +5,16 @@ import {
   listCars,
   updateCarById,
 } from "@/lib/services/cars.service";
+import { isCurrentUserAdmin } from "@/lib/auth";
+
+async function requireAdmin() {
+  if (await isCurrentUserAdmin()) return null;
+
+  return NextResponse.json(
+    { error: "Admin access is required." },
+    { status: 403 },
+  );
+}
 
 export async function GET() {
   try {
@@ -22,6 +32,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const forbidden = await requireAdmin();
+    if (forbidden) return forbidden;
+
     const carData = await request.json();
     const data = await createCar(carData);
 
@@ -36,6 +49,9 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
+    const forbidden = await requireAdmin();
+    if (forbidden) return forbidden;
+
     const carData = await request.json();
     const data = await updateCarById(carData);
 
@@ -52,6 +68,9 @@ export async function PATCH(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    const forbidden = await requireAdmin();
+    if (forbidden) return forbidden;
+
     const { id } = await request.json();
     const data = await deleteCarById(id);
 

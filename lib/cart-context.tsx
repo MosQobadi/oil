@@ -9,7 +9,7 @@ export type CartItem = {
   price: number
   quantity: number
   image?: string
-  type: "oil" | "oil-filter" | "air-filter" | "cabin-filter"
+  type: "oil" | "oil-filter" | "air-filter" | "cabin-filter" | "fuel-filter"
   viscosity?: string
   specs?: string
 }

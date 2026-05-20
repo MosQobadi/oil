@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ArrowLeft, CreditCard, Lock, Check, Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,10 +12,13 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { useLanguage } from "@/lib/language-context"
 import { useCart } from "@/lib/cart-context"
+import { useAuth } from "@/lib/auth-context"
 
 export default function CheckoutPage() {
+  const router = useRouter()
   const { t, language, isRTL } = useLanguage()
   const { items, subtotal, clearCart } = useCart()
+  const { user, isLoading: isAuthLoading } = useAuth()
   const [isProcessing, setIsProcessing] = useState(false)
   const [orderComplete, setOrderComplete] = useState(false)
 
@@ -34,6 +38,24 @@ export default function CheckoutPage() {
     cardName: "",
   })
 
+  useEffect(() => {
+    if (!isAuthLoading && !user) {
+      router.replace("/auth?redirect=/checkout")
+    }
+  }, [isAuthLoading, router, user])
+
+  useEffect(() => {
+    if (!user) return
+
+    const [firstName = "", ...rest] = (user.name ?? "").split(" ")
+    setFormData((prev) => ({
+      ...prev,
+      email: prev.email || user.email,
+      firstName: prev.firstName || firstName,
+      lastName: prev.lastName || rest.join(" "),
+    }))
+  }, [user])
+
   const shipping = subtotal > 99 ? 0 : 9.99
   const tax = subtotal * 0.08
   const total = subtotal + shipping + tax
@@ -45,6 +67,12 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!user) {
+      router.replace("/auth?redirect=/checkout")
+      return
+    }
+
     setIsProcessing(true)
 
     // Simulate order processing
@@ -86,6 +114,17 @@ export default function CheckoutPage() {
           </div>
         </div>
         <Footer />
+      </main>
+    )
+  }
+
+  if (isAuthLoading || !user) {
+    return (
+      <main className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex min-h-screen items-center justify-center px-4">
+          <p className="text-sm text-muted-foreground">Checking your account...</p>
+        </div>
       </main>
     )
   }

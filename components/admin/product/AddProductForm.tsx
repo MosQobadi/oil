@@ -16,6 +16,10 @@ import {
   useAddCabinFilter,
   useUpdateCabinFilter,
 } from "@/lib/api/cabinFilters/queries";
+import {
+  useAddFuelFilter,
+  useUpdateFuelFilter,
+} from "@/lib/api/fuelFilters/queries";
 import type {
   Oil,
   OilInsertPayload,
@@ -36,19 +40,31 @@ import type {
   CabinFilterInsertPayload,
   CabinFilterUpdatePayload,
 } from "@/lib/api/cabinFilters/types";
+import type {
+  FuelFilter,
+  FuelFilterInsertPayload,
+  FuelFilterUpdatePayload,
+} from "@/lib/api/fuelFilters/types";
 
-type ProductType = "oils" | "oilFilters" | "airFilters" | "cabinFilters";
-type AnyProduct = Oil | OilFilter | AirFilter | CabinFilter;
+type ProductType =
+  | "oils"
+  | "oilFilters"
+  | "airFilters"
+  | "cabinFilters"
+  | "fuelFilters";
+type AnyProduct = Oil | OilFilter | AirFilter | CabinFilter | FuelFilter;
 type AnyInsertPayload =
   | OilInsertPayload
   | OilFilterInsertPayload
   | AirFilterInsertPayload
-  | CabinFilterInsertPayload;
+  | CabinFilterInsertPayload
+  | FuelFilterInsertPayload;
 type AnyUpdatePayload =
   | OilUpdatePayload
   | OilFilterUpdatePayload
   | AirFilterUpdatePayload
-  | CabinFilterUpdatePayload;
+  | CabinFilterUpdatePayload
+  | FuelFilterUpdatePayload;
 
 interface AddProductFormProps {
   productType: ProductType;
@@ -217,6 +233,37 @@ const AddProductForm = ({
     },
   });
 
+  const addFuelFilterMutation = useAddFuelFilter({
+    onSuccess: () => {
+      setMessage(t.admin.addSuccess);
+      setBrand("");
+      setName("");
+      setModel("");
+      setPrice("");
+      setBadge("");
+      setImageFile(null);
+      setImagePreview(null);
+      onSuccess?.();
+    },
+    onError: (submitError) => {
+      setError(
+        submitError instanceof Error ? submitError.message : t.common.error,
+      );
+    },
+  });
+
+  const updateFuelFilterMutation = useUpdateFuelFilter({
+    onSuccess: () => {
+      setMessage(t.admin.addSuccess);
+      onSuccess?.();
+    },
+    onError: (submitError) => {
+      setError(
+        submitError instanceof Error ? submitError.message : t.common.error,
+      );
+    },
+  });
+
   // Get the appropriate mutations based on product type
   const getAddMutation = () => {
     switch (productType) {
@@ -228,6 +275,8 @@ const AddProductForm = ({
         return addAirFilterMutation;
       case "cabinFilters":
         return addCabinFilterMutation;
+      case "fuelFilters":
+        return addFuelFilterMutation;
     }
   };
 
@@ -241,6 +290,8 @@ const AddProductForm = ({
         return updateAirFilterMutation;
       case "cabinFilters":
         return updateCabinFilterMutation;
+      case "fuelFilters":
+        return updateFuelFilterMutation;
     }
   };
 
@@ -263,6 +314,7 @@ const AddProductForm = ({
       oilFilters: "oil-filters",
       airFilters: "air-filters",
       cabinFilters: "cabin-filters",
+      fuelFilters: "fuel-filters",
     };
 
     if (imageFile) {

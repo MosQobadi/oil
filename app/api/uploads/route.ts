@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { isCurrentUserAdmin } from "@/lib/auth";
 
 const allowedTypes = new Set([
   "image/jpeg",
@@ -13,6 +14,13 @@ const maxSize = 5 * 1024 * 1024;
 
 export async function POST(request: Request) {
   try {
+    if (!(await isCurrentUserAdmin())) {
+      return NextResponse.json(
+        { error: "Admin access is required." },
+        { status: 403 },
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get("file");
     const folderValue = formData.get("folder");

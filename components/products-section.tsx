@@ -12,14 +12,21 @@ import { useOils } from "@/lib/api/oils/queries";
 import { useOilFilters } from "@/lib/api/oilFilters/queries";
 import { useAirFilters } from "@/lib/api/airFilters/queries";
 import { useCabinFilters } from "@/lib/api/cabinFilters/queries";
+import { useFuelFilters } from "@/lib/api/fuelFilters/queries";
 import type { Oil } from "@/lib/api/oils/types";
 import type { OilFilter } from "@/lib/api/oilFilters/types";
 import type { AirFilter } from "@/lib/api/airFilters/types";
 import type { CabinFilter } from "@/lib/api/cabinFilters/types";
+import type { FuelFilter } from "@/lib/api/fuelFilters/types";
 
-type ProductCategory = "oils" | "oilFilters" | "airFilters" | "cabinFilters";
+type ProductCategory =
+  | "oils"
+  | "oilFilters"
+  | "airFilters"
+  | "cabinFilters"
+  | "fuelFilters";
 
-type SectionProduct = Oil | OilFilter | AirFilter | CabinFilter;
+type SectionProduct = Oil | OilFilter | AirFilter | CabinFilter | FuelFilter;
 
 const tabConfig = [
   {
@@ -49,6 +56,13 @@ const tabConfig = [
     icon: Star,
     gradient: "from-emerald-200/30 to-emerald-200/5",
     typeLabel: "Cabin Filter",
+  },
+  {
+    id: "fuelFilters" as const,
+    label: "fuelFilter",
+    icon: Zap,
+    gradient: "from-amber-200/30 to-amber-200/5",
+    typeLabel: "Fuel Filter",
   },
 ];
 
@@ -80,6 +94,12 @@ export function ProductsSection() {
     isError: isCabinFiltersError,
   } = useCabinFilters();
 
+  const {
+    data: fuelFilters = [],
+    isLoading: isFuelFiltersLoading,
+    isError: isFuelFiltersError,
+  } = useFuelFilters();
+
   const [selectedTab, setSelectedTab] = useState<ProductCategory>("oils");
 
   const products =
@@ -89,7 +109,9 @@ export function ProductsSection() {
         ? oilFilters
         : selectedTab === "airFilters"
           ? airFilters
-          : cabinFilters;
+          : selectedTab === "cabinFilters"
+            ? cabinFilters
+            : fuelFilters;
 
   const isLoading =
     selectedTab === "oils"
@@ -98,7 +120,9 @@ export function ProductsSection() {
         ? isOilFiltersLoading
         : selectedTab === "airFilters"
           ? isAirFiltersLoading
-          : isCabinFiltersLoading;
+          : selectedTab === "cabinFilters"
+            ? isCabinFiltersLoading
+            : isFuelFiltersLoading;
 
   const isError =
     selectedTab === "oils"
@@ -107,18 +131,13 @@ export function ProductsSection() {
         ? isOilFiltersError
         : selectedTab === "airFilters"
           ? isAirFiltersError
-          : isCabinFiltersError;
+          : selectedTab === "cabinFilters"
+            ? isCabinFiltersError
+            : isFuelFiltersError;
 
   const currentTab = tabConfig.find((tab) => tab.id === selectedTab)!;
 
   const handleAddToCart = (product: SectionProduct) => {
-    const typeMap: Record<ProductCategory, SectionProduct["id"]> = {
-      oils: product.id,
-      oilFilters: product.id,
-      airFilters: product.id,
-      cabinFilters: product.id,
-    };
-
     const cartType =
       selectedTab === "oils"
         ? "oil"
@@ -126,7 +145,9 @@ export function ProductsSection() {
           ? "oil-filter"
           : selectedTab === "airFilters"
             ? "air-filter"
-            : "cabin-filter";
+            : selectedTab === "cabinFilters"
+              ? "cabin-filter"
+              : "fuel-filter";
 
     addItem({
       id: `${selectedTab}-${product.id}`,
@@ -168,7 +189,7 @@ export function ProductsSection() {
             value={selectedTab}
             onValueChange={(value) => setSelectedTab(value as ProductCategory)}
           >
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 p-1">
+            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 p-1">
               {tabConfig.map((tab) => (
                 <TabsTrigger key={tab.id} value={tab.id} className="text-sm">
                   {t.products[tab.label as keyof typeof t.products]}

@@ -27,12 +27,17 @@ import {
   useCabinFilters,
   useDeleteCabinFilter,
 } from "@/lib/api/cabinFilters/queries";
+import {
+  useFuelFilters,
+  useDeleteFuelFilter,
+} from "@/lib/api/fuelFilters/queries";
 import AddCarForm from "./car/AddCarForm";
 import CarAdminList from "./car/CarAdminList";
 import OilAdminList from "./product/OilAdminList";
 import OilFilterAdminList from "./product/OilFilterAdminList";
 import AirFilterAdminList from "./product/AirFilterAdminList";
 import CabinFilterAdminList from "./product/CabinFilterAdminList";
+import FuelFilterAdminList from "./product/FuelFilterAdminList";
 import AddProductForm from "./product/AddProductForm";
 import { ConfirmModal } from "./ConfirmModal";
 import type { Car } from "@/lib/api/cars/types";
@@ -40,6 +45,7 @@ import type { Oil } from "@/lib/api/oils/types";
 import type { OilFilter } from "@/lib/api/oilFilters/types";
 import type { AirFilter } from "@/lib/api/airFilters/types";
 import type { CabinFilter } from "@/lib/api/cabinFilters/types";
+import type { FuelFilter } from "@/lib/api/fuelFilters/types";
 
 const productTypes = [
   { id: "cars", key: "cars" },
@@ -47,6 +53,7 @@ const productTypes = [
   { id: "oilFilters", key: "oilFilters" },
   { id: "airFilters", key: "airFilters" },
   { id: "cabinFilters", key: "cabinFilters" },
+  { id: "fuelFilters", key: "fuelFilters" },
 ] as const;
 
 type ProductType = (typeof productTypes)[number]["id"];
@@ -62,7 +69,7 @@ type CategoryConfig = {
   emptyText: string;
 };
 
-type EditableProduct = Oil | OilFilter | AirFilter | CabinFilter;
+type EditableProduct = Oil | OilFilter | AirFilter | CabinFilter | FuelFilter;
 
 export default function AdminPanel() {
   const { t } = useLanguage();
@@ -97,6 +104,12 @@ export default function AdminPanel() {
     isError: isCabinFiltersError,
   } = useCabinFilters();
 
+  const {
+    data: fuelFilters = [],
+    isLoading: isFuelFiltersLoading,
+    isError: isFuelFiltersError,
+  } = useFuelFilters();
+
   const [selectedType, setSelectedType] = useState<ProductType>("cars");
   const [searchQuery, setSearchQuery] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -126,6 +139,10 @@ export default function AdminPanel() {
   });
 
   const deleteCabinFilterMutation = useDeleteCabinFilter({
+    onSuccess: () => {},
+  });
+
+  const deleteFuelFilterMutation = useDeleteFuelFilter({
     onSuccess: () => {},
   });
 
@@ -171,6 +188,8 @@ export default function AdminPanel() {
         deleteAirFilterMutation.mutate({ id: pendingDeleteProduct.id });
       } else if (selectedType === "cabinFilters") {
         deleteCabinFilterMutation.mutate({ id: pendingDeleteProduct.id });
+      } else if (selectedType === "fuelFilters") {
+        deleteFuelFilterMutation.mutate({ id: pendingDeleteProduct.id });
       }
       setPendingDeleteProduct(null);
       setConfirmOpen(false);
@@ -261,6 +280,24 @@ export default function AdminPanel() {
     );
   }, [cabinFilters, searchQuery]);
 
+  const filteredFuelFilters = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return fuelFilters;
+
+    return fuelFilters.filter((filter) =>
+      [
+        filter.brand,
+        filter.name,
+        filter.model,
+        filter.badge,
+        String(filter.price),
+      ]
+        .join(" ")
+        .toLowerCase()
+        .includes(query),
+    );
+  }, [fuelFilters, searchQuery]);
+
   const isCarsView = selectedType === "cars";
   const selectedCategoryLabel =
     t.admin.tabs[selectedType as keyof typeof t.admin.tabs];
@@ -309,6 +346,16 @@ export default function AdminPanel() {
     cabinFilters: {
       listTitle: t.admin.cabinFilterListTitle,
       listDescription: t.admin.cabinFilterListDescription,
+      addLabel: t.admin.addProduct,
+      editLabel: t.admin.editProduct,
+      addDescription: t.admin.addProductDescription,
+      editDescription: t.admin.editProductDescription,
+      deleteConfirm: t.admin.deleteConfirmProduct,
+      emptyText: t.admin.noProducts,
+    },
+    fuelFilters: {
+      listTitle: t.admin.fuelFilterListTitle,
+      listDescription: t.admin.fuelFilterListDescription,
       addLabel: t.admin.addProduct,
       editLabel: t.admin.editProduct,
       addDescription: t.admin.addProductDescription,
@@ -427,7 +474,7 @@ export default function AdminPanel() {
             onEdit={handleEditProduct}
             onDelete={handleDeleteProduct}
           />
-        ) : (
+        ) : selectedType === "cabinFilters" ? (
           <CabinFilterAdminList
             title={currentConfig.listTitle}
             description={currentConfig.listDescription}
@@ -435,6 +482,18 @@ export default function AdminPanel() {
             filteredProducts={filteredCabinFilters}
             isLoading={isCabinFiltersLoading}
             isError={isCabinFiltersError}
+            emptyText={currentConfig.emptyText}
+            onEdit={handleEditProduct}
+            onDelete={handleDeleteProduct}
+          />
+        ) : (
+          <FuelFilterAdminList
+            title={currentConfig.listTitle}
+            description={currentConfig.listDescription}
+            products={fuelFilters}
+            filteredProducts={filteredFuelFilters}
+            isLoading={isFuelFiltersLoading}
+            isError={isFuelFiltersError}
             emptyText={currentConfig.emptyText}
             onEdit={handleEditProduct}
             onDelete={handleDeleteProduct}
@@ -476,6 +535,7 @@ export default function AdminPanel() {
                     | "oilFilters"
                     | "airFilters"
                     | "cabinFilters"
+                    | "fuelFilters"
                 }
                 mode={editingProduct ? "edit" : "add"}
                 defaultValues={editingProduct ?? undefined}
@@ -502,7 +562,8 @@ export default function AdminPanel() {
           deleteOilMutation.status === "pending" ||
           deleteOilFilterMutation.status === "pending" ||
           deleteAirFilterMutation.status === "pending" ||
-          deleteCabinFilterMutation.status === "pending"
+          deleteCabinFilterMutation.status === "pending" ||
+          deleteFuelFilterMutation.status === "pending"
         }
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}

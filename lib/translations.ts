@@ -11,6 +11,17 @@ export const translations = {
       shopNow: "Shop Now",
       cart: "Cart",
     },
+    account: {
+      profile: "Profile",
+      signedInAs: "Signed in as",
+      fullName: "Full name",
+      email: "Email",
+      adminPanel: "Admin Panel",
+      login: "Login",
+      logout: "Logout",
+      customer: "Customer",
+      admin: "Admin",
+    },
     // Hero
     hero: {
       badge: "Trusted by 50,000+ drivers",
@@ -207,6 +218,7 @@ export const translations = {
         oilFilters: "Oil Filters",
         airFilters: "Air Filters",
         cabinFilters: "Cabin Filters",
+        fuelFilters: "Fuel Filters",
       },
       carListTitle: "Car Inventory",
       carListDescription: "Browse, edit, and delete cars from your catalog.",
@@ -219,6 +231,9 @@ export const translations = {
       cabinFilterListTitle: "Cabin Filter Inventory",
       cabinFilterListDescription:
         "Browse, edit, and delete cabin filter products.",
+      fuelFilterListTitle: "Fuel Filter Inventory",
+      fuelFilterListDescription:
+        "Browse, edit, and delete fuel filter products.",
       items: "items",
       noCars: "No cars found.",
       noProducts: "No products found.",
@@ -238,6 +253,11 @@ export const translations = {
       addCar: "Add Car",
       editDescription: "Update car details and save changes to your catalog.",
       addDescription: "Add a new car to your inventory.",
+      suggestedOils: "Suggested Oils",
+      suggestedOilFilters: "Suggested Oil Filters",
+      suggestedAirFilters: "Suggested Air Filters",
+      suggestedCabinFilters: "Suggested Cabin Filters",
+      suggestedFuelFilters: "Suggested Fuel Filters",
       addSuccess: "Saved successfully.",
       deleteConfirm: "Are you sure you want to delete this car?",
     },
@@ -267,6 +287,7 @@ export const translations = {
       oilFilter: "Oil Filter",
       airFilter: "Air Filter",
       cabinFilter: "Cabin Filter",
+      fuelFilter: "Fuel Filter",
     },
     // Cart
     cart: {
@@ -341,6 +362,17 @@ export const translations = {
       carFinder: "راهنمای خودرو",
       shopNow: "خرید کنید",
       cart: "سبد خرید",
+    },
+    account: {
+      profile: "پروفایل",
+      signedInAs: "وارد شده به عنوان",
+      fullName: "نام کامل",
+      email: "ایمیل",
+      adminPanel: "پنل مدیریت",
+      login: "ورود",
+      logout: "خروج",
+      customer: "کاربر",
+      admin: "مدیر",
     },
     // Hero
     hero: {
@@ -537,6 +569,7 @@ export const translations = {
         oilFilters: "فیلتر روغن",
         airFilters: "فیلتر هوا",
         cabinFilters: "فیلتر کابین",
+        fuelFilters: "فیلتر سوخت",
       },
       carListTitle: "مخزن خودروها",
       carListDescription: "خودروها را مرور، ویرایش و حذف کنید.",
@@ -548,6 +581,8 @@ export const translations = {
       airFilterListDescription: "فیلتر هوا را مرور، ویرایش و حذف کنید.",
       cabinFilterListTitle: "مخزن فیلتر کابین",
       cabinFilterListDescription: "فیلتر کابین را مرور، ویرایش و حذف کنید.",
+      fuelFilterListTitle: "مخزن فیلتر سوخت",
+      fuelFilterListDescription: "فیلتر سوخت را مرور، ویرایش و حذف کنید.",
       items: "مورد",
       noCars: "خودرویی پیدا نشد.",
       noProducts: "محصولی پیدا نشد.",
@@ -567,6 +602,11 @@ export const translations = {
       addCar: "افزودن خودرو",
       editDescription: "جزئیات خودرو را به‌روزرسانی و تغییرات را ذخیره کنید.",
       addDescription: "یک خودرو جدید به موجودی خود اضافه کنید.",
+      suggestedOils: "روغن‌های پیشنهادی",
+      suggestedOilFilters: "فیلترهای روغن پیشنهادی",
+      suggestedAirFilters: "فیلترهای هوا پیشنهادی",
+      suggestedCabinFilters: "فیلترهای کابین پیشنهادی",
+      suggestedFuelFilters: "فیلترهای سوخت پیشنهادی",
       addSuccess: "با موفقیت ذخیره شد.",
       deleteConfirm: "آیا مطمئن هستید که می‌خواهید این خودرو را حذف کنید؟",
     },
@@ -596,6 +636,7 @@ export const translations = {
       oilFilter: "فیلتر روغن",
       airFilter: "فیلتر هوا",
       cabinFilter: "فیلتر کابین",
+      fuelFilter: "فیلتر سوخت",
     },
     // Cart
     cart: {

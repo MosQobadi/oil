@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import { Input } from "@/components/ui/input";
 import { useCars } from "@/lib/api/cars/queries";
+import { useProducts } from "@/lib/api/products/queries";
 import type { Car } from "@/lib/api/cars/types";
 
 export function CarFinderClient() {
@@ -56,6 +57,53 @@ export function CarFinderClient() {
       car.model === selectedModel &&
       car.year === selectedYear,
   );
+
+  const oilsQuery = useProducts("oils");
+  const oilFiltersQuery = useProducts("oilFilters");
+  const airFiltersQuery = useProducts("airFilters");
+  const cabinFiltersQuery = useProducts("cabinFilters");
+  const fuelFiltersQuery = useProducts("fuelFilters");
+
+  const getSuggestedLabels = (
+    ids: number[] | undefined,
+    products: { id: number; brand: string; name: string }[],
+  ) => {
+    if (!ids || ids.length === 0) return [];
+
+    return ids
+      .map((id) => products.find((product) => product.id === id))
+      .filter(Boolean)
+      .map((product) => `${product?.brand ?? ""} ${product?.name ?? ""}`);
+  };
+
+  const suggestedOils = getSuggestedLabels(
+    selectedCar?.suggestedProducts?.suggestedOils,
+    oilsQuery.data ?? [],
+  );
+  const suggestedOilFilters = getSuggestedLabels(
+    selectedCar?.suggestedProducts?.suggestedOilFilters,
+    oilFiltersQuery.data ?? [],
+  );
+  const suggestedAirFilters = getSuggestedLabels(
+    selectedCar?.suggestedProducts?.suggestedAirFilters,
+    airFiltersQuery.data ?? [],
+  );
+  const suggestedCabinFilters = getSuggestedLabels(
+    selectedCar?.suggestedProducts?.suggestedCabinFilters,
+    cabinFiltersQuery.data ?? [],
+  );
+  const suggestedFuelFilters = getSuggestedLabels(
+    selectedCar?.suggestedProducts?.suggestedFuelFilters,
+    fuelFiltersQuery.data ?? [],
+  );
+
+  const suggestedSections = [
+    { title: "Suggested Oils", items: suggestedOils },
+    { title: "Suggested Oil Filters", items: suggestedOilFilters },
+    { title: "Suggested Air Filters", items: suggestedAirFilters },
+    { title: "Suggested Cabin Filters", items: suggestedCabinFilters },
+    { title: "Suggested Fuel Filters", items: suggestedFuelFilters },
+  ].filter((section) => section.items.length > 0);
 
   if (isLoading) {
     return (
@@ -149,25 +197,58 @@ export function CarFinderClient() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-10 rounded-2xl border border-border bg-card p-6"
           >
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <CarIcon className="h-7 w-7 text-primary" />
-              </div>
+            <div
+              className={`grid gap-6 ${selectedCar.imageUrl ? "lg:grid-cols-[240px_1fr]" : ""}`}
+            >
+              {selectedCar.imageUrl && (
+                <div className="relative overflow-hidden rounded-3xl bg-muted/10">
+                  <img
+                    src={selectedCar.imageUrl}
+                    alt={`${selectedCar.brand} ${selectedCar.model}`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              )}
 
-              <div>
-                <h3 className="text-2xl font-bold">
-                  {selectedCar.brand} {selectedCar.model}
-                </h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <CarIcon className="h-7 w-7 text-primary" />
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-bold">
+                      {selectedCar.brand} {selectedCar.model}
+                    </h3>
+
+                    <p className="text-muted-foreground">
+                      {selectedCar.year} • {selectedCar.engine}
+                    </p>
+                  </div>
+                </div>
 
                 <p className="text-muted-foreground">
-                  {selectedCar.year} • {selectedCar.engine}
+                  {selectedCar.description}
                 </p>
+
+                {suggestedSections.length > 0 && (
+                  <div className="rounded-2xl border border-border bg-background p-4">
+                    <h4 className="text-lg font-semibold">
+                      Recommended Products
+                    </h4>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      {suggestedSections.map((section) => (
+                        <SuggestedSection
+                          key={section.title}
+                          title={section.title}
+                          items={section.items}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-
-            <p className="mt-4 text-muted-foreground">
-              {selectedCar.description}
-            </p>
           </motion.div>
         )}
       </div>
@@ -226,6 +307,35 @@ function SelectBox({
             </button>
           ))}
         </div>
+      )}
+    </div>
+  );
+}
+
+interface SuggestedSectionProps {
+  title: string;
+  items: string[];
+}
+
+function SuggestedSection({ title, items }: SuggestedSectionProps) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4">
+      <h5 className="text-sm font-semibold text-foreground">{title}</h5>
+      {items.length > 0 ? (
+        <ul className="mt-3 space-y-2">
+          {items.map((item) => (
+            <li
+              key={item}
+              className="rounded-2xl border border-border bg-background px-3 py-2 text-sm text-foreground"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-3 text-sm text-muted-foreground">
+          No recommendations.
+        </p>
       )}
     </div>
   );

@@ -1,3 +1,11 @@
+export interface SuggestedProducts {
+  suggestedOils?: number[];
+  suggestedOilFilters?: number[];
+  suggestedAirFilters?: number[];
+  suggestedCabinFilters?: number[];
+  suggestedFuelFilters?: number[];
+}
+
 export type Car = {
   id: number;
   brand: string;
@@ -6,6 +14,7 @@ export type Car = {
   engine: string;
   description: string;
   imageUrl?: string;
+  suggestedProducts?: SuggestedProducts | null;
 };
 
 export interface CarInsertPayload {
@@ -15,6 +24,7 @@ export interface CarInsertPayload {
   engine?: string;
   description?: string;
   imageUrl?: string;
+  suggestedProducts?: SuggestedProducts | null;
   [key: string]: unknown;
 }
 

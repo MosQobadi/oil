@@ -1,5 +1,20 @@
 import { z } from "zod";
 
+const suggestedProductsSchema = z
+  .object({
+    suggestedOils: z.array(z.coerce.number().int().positive()).optional(),
+    suggestedOilFilters: z.array(z.coerce.number().int().positive()).optional(),
+    suggestedAirFilters: z.array(z.coerce.number().int().positive()).optional(),
+    suggestedCabinFilters: z
+      .array(z.coerce.number().int().positive())
+      .optional(),
+    suggestedFuelFilters: z
+      .array(z.coerce.number().int().positive())
+      .optional(),
+  })
+  .optional()
+  .nullable();
+
 export const carInputSchema = z.object({
   brand: z.string().trim().min(1),
   model: z.string().trim().min(1),
@@ -7,6 +22,7 @@ export const carInputSchema = z.object({
   engine: z.string().trim().optional().nullable(),
   description: z.string().trim().optional().nullable(),
   imageUrl: z.string().trim().optional().nullable(),
+  suggestedProducts: suggestedProductsSchema,
 });
 
 export const carUpdateSchema = carInputSchema.partial().extend({

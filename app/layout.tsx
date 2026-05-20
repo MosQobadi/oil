@@ -5,6 +5,7 @@ import { LanguageProvider } from '@/lib/language-context'
 import { ThemeProvider } from '@/lib/theme-context'
 import { CartProvider } from '@/lib/cart-context'
 import { ReactQueryProvider } from '@/lib/query-client'
+import { AuthProvider } from '@/lib/auth-context'
 import './globals.css'
 
 const inter = Inter({ 
@@ -45,11 +46,13 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
-            <CartProvider>
-              <ReactQueryProvider>
-                {children}
-              </ReactQueryProvider>
-            </CartProvider>
+            <AuthProvider>
+              <CartProvider>
+                <ReactQueryProvider>
+                  {children}
+                </ReactQueryProvider>
+              </CartProvider>
+            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}

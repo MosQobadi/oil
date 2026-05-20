@@ -2,21 +2,45 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingCart, Sun, Moon, Globe } from "lucide-react";
+import {
+  ChevronDown,
+  LogIn,
+  LogOut,
+  Mail,
+  Menu,
+  Moon,
+  Shield,
+  ShoppingCart,
+  Sun,
+  UserCircle,
+  X,
+  Globe,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useLanguage } from "@/lib/language-context";
 import { useTheme } from "@/lib/theme-context";
 import { useCart } from "@/lib/cart-context";
+import { useAuth } from "@/lib/auth-context";
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, setLanguage, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const { totalItems } = useCart();
+  const { user, logout } = useAuth();
 
   const navLinks = [
     { name: t.nav.products, href: "/products" },
@@ -50,6 +74,100 @@ export function Navbar() {
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "fa" : "en");
   };
+
+  const handleLogout = async () => {
+    await logout();
+    if (pathname.startsWith("/admin")) {
+      router.push("/");
+    }
+  };
+
+  const profileName = user?.name?.trim() || user?.email || t.account.customer;
+  const accountRole = user?.isAdmin ? t.account.admin : t.account.customer;
+
+  const renderAccountMenu = () =>
+    user ? (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className={`h-10 gap-2 px-2 text-muted-foreground hover:text-foreground sm:px-3 ${
+              isRTL ? "flex-row-reverse" : ""
+            }`}
+            title={t.account.profile}
+          >
+            <UserCircle className="h-5 w-5" />
+            <span className="hidden max-w-28 truncate text-sm font-medium sm:inline">
+              {t.account.profile}
+            </span>
+            <ChevronDown className="hidden h-4 w-4 sm:block" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align={isRTL ? "start" : "end"}
+          sideOffset={10}
+          className={`w-[min(calc(100vw-2rem),22rem)] p-2 ${
+            isRTL ? "text-right" : ""
+          }`}
+        >
+          <DropdownMenuLabel className="px-3 py-3">
+            <div className="space-y-1">
+              <p className="text-xs font-normal text-muted-foreground">
+                {t.account.signedInAs}
+              </p>
+              <p className="truncate text-base font-semibold text-foreground">
+                {profileName}
+              </p>
+              <div
+                className={`flex items-center gap-2 text-sm font-normal text-muted-foreground ${
+                  isRTL ? "flex-row-reverse justify-end" : ""
+                }`}
+              >
+                <Mail className="h-4 w-4 shrink-0" />
+                <span className="truncate">{user.email}</span>
+              </div>
+              <p className="text-xs font-normal text-primary">{accountRole}</p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {user.isAdmin && (
+            <DropdownMenuItem
+              className={`min-h-11 cursor-pointer px-3 ${
+                isRTL ? "flex-row-reverse" : ""
+              }`}
+              onSelect={() => router.push("/admin")}
+            >
+              <Shield className="h-4 w-4" />
+              {t.account.adminPanel}
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuItem
+            className={`min-h-11 cursor-pointer px-3 ${
+              isRTL ? "flex-row-reverse" : ""
+            }`}
+            onSelect={handleLogout}
+          >
+            <LogOut className="h-4 w-4" />
+            {t.account.logout}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ) : (
+      <Link href="/auth">
+        <Button
+          variant="ghost"
+          className={`h-10 gap-2 px-2 text-muted-foreground hover:text-foreground sm:px-3 ${
+            isRTL ? "flex-row-reverse" : ""
+          }`}
+          title={t.account.login}
+        >
+          <LogIn className="h-5 w-5" />
+          <span className="hidden text-sm font-medium sm:inline">
+            {t.account.login}
+          </span>
+        </Button>
+      </Link>
+    );
 
   return (
     <>
@@ -146,6 +264,8 @@ export function Navbar() {
                 </Button>
               </Link>
 
+              {renderAccountMenu()}
+
               <Link href="/products">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6">
                   {t.nav.shopNow}
@@ -189,6 +309,7 @@ export function Navbar() {
                   )}
                 </Button>
               </Link>
+              {renderAccountMenu()}
               <button
                 className="text-foreground"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
