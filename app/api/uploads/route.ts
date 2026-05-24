@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
 import { isCurrentUserAdmin } from "@/lib/auth";
+import { put } from "@vercel/blob";
 
 const allowedTypes = new Set([
   "image/jpeg",
@@ -53,8 +54,33 @@ export async function POST(request: Request) {
     const extension = path.extname(file.name).toLowerCase() || ".jpg";
     const fileName = `${randomUUID()}${extension}`;
     const relativePath = path.posix.join("uploads", folder, fileName);
-    const uploadDir = path.join(process.cwd(), "public", "uploads", folder);
 
+    const shouldUseVercelBlob =
+      process.env.NODE_ENV === "production" ||
+      Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
+    if (shouldUseVercelBlob) {
+      if (!process.env.BLOB_READ_WRITE_TOKEN) {
+        return NextResponse.json(
+          {
+            error:
+              "Missing BLOB_READ_WRITE_TOKEN environment variable for Vercel Blob storage.",
+          },
+          { status: 500 },
+        );
+      }
+
+      const blob = await put(relativePath, file, {
+        access: "public",
+        contentType: file.type,
+        cacheControlMaxAge: 60 * 60 * 24 * 30,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+      });
+
+      return NextResponse.json({ data: { url: blob.url } });
+    }
+
+    const uploadDir = path.join(process.cwd(), "public", "uploads", folder);
     await mkdir(uploadDir, { recursive: true });
     await writeFile(
       path.join(uploadDir, fileName),

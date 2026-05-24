@@ -68,14 +68,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     refreshUser();
   }, [refreshUser]);
 
-  const login = useCallback(async (payload: { email: string; password: string }) => {
-    const data = await authRequest<{ user: AuthUser }>("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-    setUser(data.user);
-    return data.user;
-  }, []);
+  const login = useCallback(
+    async (payload: { email: string; password: string }) => {
+      const data = await authRequest<{ user: AuthUser }>("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      setUser(data.user);
+      return data.user;
+    },
+    [],
+  );
 
   const register = useCallback(
     async (payload: { name: string; email: string; password: string }) => {

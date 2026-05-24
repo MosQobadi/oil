@@ -193,8 +193,8 @@ const AddCarForm = ({
   };
 
   return (
-    <section className="rounded-3xl border border-border bg-card p-6 shadow-sm max-h-[90vh] overflow-y-auto">
-      <div className="mb-6 flex flex-col gap-2 sticky top-0 bg-card pb-4 border-b border-border">
+    <section className="rounded-3xl border border-border bg-card p-6 shadow-sm max-h-[60vh] overflow-y-auto">
+      {/* <div className="mb-6 flex flex-col gap-2 sticky top-0 bg-card pb-4 border-b border-border">
         <p className="text-sm uppercase tracking-[0.2em] text-primary">
           {t.admin.title}
         </p>
@@ -204,7 +204,7 @@ const AddCarForm = ({
         <p className="max-w-2xl text-sm text-muted-foreground">
           {mode === "edit" ? t.admin.editDescription : t.admin.addDescription}
         </p>
-      </div>
+      </div> */}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic Car Information */}
