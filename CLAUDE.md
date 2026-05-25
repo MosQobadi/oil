@@ -32,6 +32,7 @@ pnpm
 - Use client components only when needed
 - Keep components focused and composable
 - Prefer existing patterns over new abstractions
+- Keep components less that 500 lines
 
 ## State Management
 

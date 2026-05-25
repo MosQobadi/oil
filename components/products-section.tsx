@@ -184,15 +184,16 @@ export function ProductsSection() {
           </p>
         </motion.div>
 
-        <div className="mb-10">
+        <div className="mb-10 ">
           <Tabs
             value={selectedTab}
             onValueChange={(value) => setSelectedTab(value as ProductCategory)}
           >
-            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 p-1">
+            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 p-1 m-auto">
               {tabConfig.map((tab) => (
                 <TabsTrigger key={tab.id} value={tab.id} className="text-sm">
-                  {t.products[tab.label as keyof typeof t.products]}
+                  {tab.typeLabel}
+                  {/* {t.products[tab.label as keyof typeof t.products]} */}
                 </TabsTrigger>
               ))}
             </TabsList>

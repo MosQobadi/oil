@@ -21,17 +21,17 @@ export default function HomePage({
     <main className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <ProductsSection />
       <CarFinderSection />
-      <BenefitsSection />
-      <WhyChooseUsSection />
-      <StatsSection />
-      <ReviewsSection />
-      <FAQSection />
-      <NewsletterSection />
+      <ProductsSection />
+      {/* <BenefitsSection /> */}
+      {/* <WhyChooseUsSection /> */}
+      {/* <StatsSection /> */}
+      {/* <ReviewsSection /> */}
+      {/* <FAQSection /> */}
+      {/* <NewsletterSection /> */}
       <Footer />
       {carsSection}
-      <FloatingCTA />
+      {/* <FloatingCTA /> */}
     </main>
   );
 }
