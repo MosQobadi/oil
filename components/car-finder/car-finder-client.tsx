@@ -292,7 +292,7 @@ function SelectBox({
       </button>
 
       {open && options.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 rounded-xl border border-border bg-card overflow-hidden z-50">
+        <div className="absolute top-full left-0 right-0 mt-2 rounded-xl border max-h-60 border-border bg-card  z-50 overflow-y-scroll">
           {options.map((option) => (
             <button
               key={option}

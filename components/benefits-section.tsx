@@ -1,59 +1,72 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Shield, Thermometer, Droplets, Gauge, Leaf, Clock } from "lucide-react"
+import { motion } from "framer-motion";
+import {
+  Shield,
+  Thermometer,
+  Droplets,
+  Gauge,
+  Leaf,
+  Clock,
+} from "lucide-react";
 
 const benefits = [
   {
     icon: Shield,
     title: "Superior Protection",
-    description: "Advanced molecular shield technology prevents wear and tear, extending engine life by up to 40%.",
+    description:
+      "Advanced molecular shield technology prevents wear and tear, extending engine life by up to 40%.",
     stat: "40%",
     statLabel: "Longer Engine Life",
   },
   {
     icon: Thermometer,
     title: "Thermal Stability",
-    description: "Maintains optimal viscosity from -40°C to 300°C, ensuring consistent performance in extreme conditions.",
+    description:
+      "Maintains optimal viscosity from -40°C to 300°C, ensuring consistent performance in extreme conditions.",
     stat: "300°C",
     statLabel: "Heat Resistance",
   },
   {
     icon: Droplets,
     title: "Clean Engine",
-    description: "Powerful detergents and dispersants keep your engine spotlessly clean, preventing sludge buildup.",
+    description:
+      "Powerful detergents and dispersants keep your engine spotlessly clean, preventing sludge buildup.",
     stat: "99%",
     statLabel: "Cleaner Engine",
   },
   {
     icon: Gauge,
     title: "Maximum Power",
-    description: "Reduced internal friction unlocks hidden horsepower and improves throttle response instantly.",
+    description:
+      "Reduced internal friction unlocks hidden horsepower and improves throttle response instantly.",
     stat: "+15HP",
     statLabel: "Power Gain",
   },
   {
     icon: Leaf,
     title: "Eco Performance",
-    description: "Lower emissions and improved fuel efficiency help protect the environment without sacrificing power.",
+    description:
+      "Lower emissions and improved fuel efficiency help protect the environment without sacrificing power.",
     stat: "12%",
     statLabel: "Better MPG",
   },
   {
     icon: Clock,
     title: "Extended Intervals",
-    description: "Premium synthetic base oils allow for longer drain intervals, saving time and money.",
+    description:
+      "Premium synthetic base oils allow for longer drain intervals, saving time and money.",
     stat: "15K",
     statLabel: "Mile Intervals",
   },
-]
+];
 
 export function BenefitsSection() {
   return (
     <section id="benefits" className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/50 to-background" />
-      
+
       {/* Decorative elements */}
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
@@ -67,12 +80,15 @@ export function BenefitsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-primary text-sm font-semibold tracking-widest uppercase">Why APEX Oil</span>
+          <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+            Why TOP Oil
+          </span>
           <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight">
             Engineered Excellence
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Every drop of APEX oil is formulated with precision to deliver unmatched performance and protection.
+            Every drop of TOP oil is formulated with precision to deliver
+            unmatched performance and protection.
           </p>
         </motion.div>
 
@@ -106,8 +122,12 @@ export function BenefitsSection() {
 
                 {/* Stat */}
                 <div className="flex items-baseline gap-2 pt-4 border-t border-border/50">
-                  <span className="text-3xl font-bold text-primary">{benefit.stat}</span>
-                  <span className="text-sm text-muted-foreground">{benefit.statLabel}</span>
+                  <span className="text-3xl font-bold text-primary">
+                    {benefit.stat}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {benefit.statLabel}
+                  </span>
                 </div>
 
                 {/* Hover gradient */}
@@ -118,5 +138,5 @@ export function BenefitsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

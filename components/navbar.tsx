@@ -187,15 +187,15 @@ export function Navbar() {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link href="/" className="flex items-center gap-2">
                 <div className="relative">
-                  <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
+                  {/* <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
                     <span className="text-primary-foreground font-bold text-lg">
-                      A
+                      T
                     </span>
                   </div>
-                  <div className="absolute -inset-1 rounded-lg bg-primary/20 blur-md -z-10" />
+                  <div className="absolute -inset-1 rounded-lg bg-primary/20 blur-md -z-10" /> */}
                 </div>
                 <span className="text-xl font-bold tracking-tight text-foreground">
-                  APEX<span className="text-primary">OIL</span>
+                  TOP<span className="text-primary">OIL</span>
                 </span>
               </Link>
             </motion.div>

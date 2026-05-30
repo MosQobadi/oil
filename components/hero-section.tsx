@@ -177,7 +177,7 @@ export function HeroSection() {
                       {/* Label area */}
                       <div className="absolute inset-x-4 top-16 bottom-20 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl border border-primary/30 flex flex-col items-center justify-center p-4">
                         <div className="text-primary font-bold text-3xl tracking-tighter">
-                          APEX
+                          TOP OIL
                         </div>
                         <div className="text-muted-foreground text-xs tracking-widest mt-1">
                           SYNTHETIC
