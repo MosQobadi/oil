@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
 import { isCurrentUserAdmin } from "@/lib/auth";
@@ -55,39 +54,24 @@ export async function POST(request: Request) {
     const fileName = `${randomUUID()}${extension}`;
     const relativePath = path.posix.join("uploads", folder, fileName);
 
-    const shouldUseVercelBlob =
-      process.env.NODE_ENV === "production" ||
-      Boolean(process.env.BLOB_READ_WRITE_TOKEN);
-
-    if (shouldUseVercelBlob) {
-      if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        return NextResponse.json(
-          {
-            error:
-              "Missing BLOB_READ_WRITE_TOKEN environment variable for Vercel Blob storage.",
-          },
-          { status: 500 },
-        );
-      }
-
-      const blob = await put(relativePath, file, {
-        access: "public",
-        contentType: file.type,
-        cacheControlMaxAge: 60 * 60 * 24 * 30,
-        token: process.env.BLOB_READ_WRITE_TOKEN,
-      });
-
-      return NextResponse.json({ data: { url: blob.url } });
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      return NextResponse.json(
+        {
+          error:
+            "Missing BLOB_READ_WRITE_TOKEN environment variable for Vercel Blob storage.",
+        },
+        { status: 500 },
+      );
     }
 
-    const uploadDir = path.join(process.cwd(), "public", "uploads", folder);
-    await mkdir(uploadDir, { recursive: true });
-    await writeFile(
-      path.join(uploadDir, fileName),
-      Buffer.from(await file.arrayBuffer()),
-    );
+    const blob = await put(relativePath, file, {
+      access: "public",
+      contentType: file.type,
+      cacheControlMaxAge: 60 * 60 * 24 * 30,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
 
-    return NextResponse.json({ data: { url: `/${relativePath}` } });
+    return NextResponse.json({ data: { url: blob.url } });
   } catch (error) {
     return NextResponse.json(
       {

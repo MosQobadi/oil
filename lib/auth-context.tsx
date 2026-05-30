@@ -59,6 +59,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const data = await authRequest<{ user: AuthUser | null }>("/api/auth/me");
       setUser(data.user);
+    } catch {
+      setUser(null);
     } finally {
       setIsLoading(false);
     }

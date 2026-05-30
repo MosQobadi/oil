@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Vazirmatn } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import { ThemeProvider } from '@/lib/theme-context'
@@ -11,6 +11,11 @@ import './globals.css'
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter'
+})
+
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  variable: '--font-vazirmatn',
 })
 
 export const metadata: Metadata = {
@@ -43,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-background" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${vazirmatn.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
             <AuthProvider>
